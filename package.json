@@ -1,0 +1,11 @@
+{
+  "name": "cache",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test01_handle_tree.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}

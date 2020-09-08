@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+    <div id="root">
+      123
+      {{ str }}
+      <a-com :c="str" v-model="str"></a-com>
+    </div>
+	</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  const aCom = Vue.component('a-com', {
+    model: {
+      prop: 'v',
+      event: 'c',
+    },
+    props: {
+      c: String,
+    },
+    methods: {
+      handldC(e) {
+        console.log(e.target.value);
+        this.$emit('c', e.target.value);
+      },
+    },
+    template: `
+    <div>
+      {{ c }}
+      <input
+        :value="c"
+        @change="handldC"
+       />
+    </div>
+    `
+  });
+  const vm = new Vue({
+    el: '#root',
+    data: {
+      str: 'test_str',
+    },
+  });
+</script>
