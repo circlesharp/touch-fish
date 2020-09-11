@@ -11,7 +11,7 @@ const cat = (headArr, ...arrs) =>
   [].concat(headArr, ...arrs);
 
 const construct = (head, arr) =>
-  [].concat(head, arr);
+  [head].concat(arr);
 
 module.exports = {
   isEmpty,
