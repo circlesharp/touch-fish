@@ -1,1 +1,0 @@
-console.log(require('./05-exports'));
