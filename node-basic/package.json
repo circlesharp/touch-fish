@@ -13,5 +13,8 @@
     "inquirer": "^7.3.3",
     "minimist": "^1.2.5",
     "progress": "^2.0.3"
+  },
+  "devDependencies": {
+    "cowsay": "^1.4.0"
   }
 }
