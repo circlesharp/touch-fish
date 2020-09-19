@@ -1,0 +1,16 @@
+{
+  "name": "node-basic",
+  "version": "1.0.0",
+  "description": "https://nodejs.dev/learn/nodejs-accept-arguments-from-the-command-line",
+  "main": "01-hello-world.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "minimist": "^1.2.5",
+    "progress": "^2.0.3"
+  }
+}
