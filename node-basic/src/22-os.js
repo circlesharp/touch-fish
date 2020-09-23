@@ -7,9 +7,9 @@ console.log(
   // os.totalmem(),
   // os.homedir(),
   // os.hostname(),
-  // os.platform(),
+  os.platform(),
   // os.release(),
   // os.tmpdir(),
   // os.uptime(),
-  os.userInfo()
+  // os.userInfo()
 );
