@@ -3,9 +3,9 @@ const deepClone = target => {
   if (typeof target !== 'object') return target;
   if (Array.isArray(target)) {
     result = [];
-    for (let i in target) {
+    Object.keys(target).forEach(i => {
       result.push(deepClone(target[i]));
-    }
+    })
   } else if (target === null) {
     result = target;
   } else if (target.constructor === RegExp) {
@@ -13,8 +13,9 @@ const deepClone = target => {
   } else {
     result = {};
     for (let i in target) {
+    Object.keys(target).forEach(i => {
       result[i] = deepClone(target[i]);
-    }
+    })
   }
   return result;
 };
