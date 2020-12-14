@@ -35,3 +35,8 @@ const parseSearchParams = url => {
   );
 }
 
+{
+  const url = 'http://brand-1.yopoint.cc/#/forgetPwdBrand?current=3&Hash=b1579af3862c6766b9bab22f86219876&UserName=trz@yopoint.com&ExpireStamp=1607935208';
+  console.log(parseScanResult(url));
+}
+
