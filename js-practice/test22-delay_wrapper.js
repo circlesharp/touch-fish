@@ -6,8 +6,10 @@ const delayWrapper = (fun, delay = 1000) => (...args) =>
   });
 
 {
-  const test = n => n;
-  const delayTest = delayWrapper(test);
+  // const test = n => n;
+  // const delayTest = delayWrapper(test);
 
-  delayTest(234).then(console.log);
+  // delayTest(234).then(console.log);
 }
+
+module.exports = delayWrapper;
