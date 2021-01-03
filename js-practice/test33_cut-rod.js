@@ -17,7 +17,7 @@ const prices = [0, 1, 5, 8, 9, 10, 17];
     
     return q;
   };
-  
+
   // console.log(cut(prices, 5)); // 13: 2/3
   // console.log(cut(prices, 8)); // 22: 2/6
   // console.log(cut(prices, 9)); // 25: 3/6
@@ -42,7 +42,7 @@ const prices = [0, 1, 5, 8, 9, 10, 17];
   // console.log(memoizedCut(prices, r, 40));
 }
 
-/* 自底向上的动态规划 */
+/* 2 自底向上的动态规划 */
 {
   const bottomUpCut = (p, n) => {
     const r = Array(n+1).fill(0);
@@ -60,7 +60,45 @@ const prices = [0, 1, 5, 8, 9, 10, 17];
     return r[n];
   };
 
-  console.log(bottomUpCut(prices, 5)); // 13: 2/3
-  console.log(bottomUpCut(prices, 8)); // 22: 2/6
-  console.log(bottomUpCut(prices, 9)); // 25: 3/6
+  // console.log(bottomUpCut(prices, 5)); // 13: 2/3
+  // console.log(bottomUpCut(prices, 8)); // 22: 2/6
+  // console.log(bottomUpCut(prices, 9)); // 25: 3/6
+}
+
+/* 2.5 自底向上的动态规划 记录解决方案 */
+{
+  const bottomUpCutWithResolve = (p, n) => {
+    const [cnt, resolve] = bottomUpCut(p, n);
+    const step = [];
+    while (n > 0) {
+      step.push(resolve[n]);
+      n -= resolve[n];
+    }
+    console.log(`the count is: ${cnt};\nthe parts is: ${step.join('/')}.\n`);
+  };
+
+  const bottomUpCut = (p, n) => {
+    const r = Array(n+1).fill(0);
+    const resolve = [];
+
+    for (let j = 1; j <= n; j++) {
+      let q = -Infinity;
+
+      /* < p.length 的限制要放在这里，因为这里才是从 p 取值 */
+      for (let i = 1; i <= j  && i < p.length; i++) {
+        const tempQ = p[i] + r[j - i];
+        if (tempQ > q) {
+          q = tempQ;
+          resolve[j] = i;
+        }
+      }
+
+      r[j] = q;
+    }
+    return [r[n], resolve];
+  };
+
+  bottomUpCutWithResolve(prices, 5); // 13: 2/3
+  bottomUpCutWithResolve(prices, 8); // 22: 2/6
+  bottomUpCutWithResolve(prices, 9); // 25: 3/6
 }
