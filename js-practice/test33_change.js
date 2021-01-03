@@ -17,11 +17,7 @@ const prices = [0, 1, 5, 8, 9, 10, 17];
     
     return q;
   };
-
-  for (let i = 0; i < 10; i++) {
-    console.log(i, cut(prices, i));
-  }
-
+  
   // console.log(cut(prices, 5)); // 13: 2/3
   // console.log(cut(prices, 8)); // 22: 2/6
   // console.log(cut(prices, 9)); // 25: 3/6
@@ -51,17 +47,20 @@ const prices = [0, 1, 5, 8, 9, 10, 17];
   const bottomUpCut = (p, n) => {
     const r = Array(n+1).fill(0);
 
-    for (let j = 1; j <= n && j < p.length; j++) {
+    for (let j = 1; j <= n; j++) {
       let q = -Infinity;
-      for (let i = 1; i <= j; i++)
+
+      /* < p.length 的限制要放在这里，因为这里才是从 p 取值 */
+      for (let i = 1; i <= j  && i < p.length; i++)
         q = Math.max(q, p[i] + r[j - i]);
+
       r[j] = q;
     }
-    console.log(p, r);
+    // console.log(p, r);
     return r[n];
   };
 
-  // console.log(bottomUpCut(prices, 5)); // 13: 2/3
+  console.log(bottomUpCut(prices, 5)); // 13: 2/3
   console.log(bottomUpCut(prices, 8)); // 22: 2/6
-  // console.log(bottomUpCut(prices, 9)); // 25: 3/6
+  console.log(bottomUpCut(prices, 9)); // 25: 3/6
 }
