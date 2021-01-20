@@ -33,32 +33,58 @@ const findMedianSortedArrays_1 = (nums1, nums2) => {
   return (rst[midIdx - 1] + rst[midIdx]) / 2;
 };
 
-const findMedianSortedArrays = (nums1, nums2) => {
-  // for (let i = 0; i < 10; i++)
-    // console.log(i, i + 1, findKth(nums1, nums2, 0, 0, i));
 
-  console.log(findKth(nums1, nums2, 0, 0, 2));
+/* 二分实现 find kth (tmd...太难了) */
+const findMedianSortedArrays = (nums1, nums2) => {
+  const len = nums1.length + nums2.length;
+  if (len % 2)
+    return findKth(nums1, nums2, 0, 0, len / 2 | 0);
+  return (findKth(nums1, nums2, 0, 0, len / 2 - 1) + findKth(nums1, nums2, 0, 0, len / 2)) / 2;
 };
 
 const findKth = (arr1, arr2, start1, start2, k) => {
-  // console.log(k, start1, start2);
-  if (k === 0)
-    return Math.min(arr1[start1], arr2[start2]);
-  if (k === 1) {
-    if (arr1[start1] < arr2[start2])
-      return Math.min(arr1[start1 + 1], arr2[start2]);
-    return Math.min(arr1[start1], arr2[start2 + 1]);
-  }
-  
-  /* k >= 2, 即自然语言的第 3 个 */
+  // if (k === 0)
+  //   return Math.min(arr1[start1] || Infinity, arr2[start2] || Infinity);
+  // if (k === 1) {
+  //   if (arr1[start1] || Infinity < arr2[start2] || Infinity)
+  //     return Math.min(arr1[start1 + 1] || Infinity, arr2[start2] || Infinity);
+  //   return Math.min(arr1[start1] || Infinity, arr2[start2 + 1] || Infinity);
+  // }
+
+  if (k < 2)
+    return [...arr1.slice(start1, start1 + 2), ...arr2.slice(start2, start2 + 1)].sort((a, b) => a - b)[k];
+
+  /* k >= 2 */
   const halfK = k / 2 | 0;
-  // console.log(k, halfK, arr1[start1 + halfK], arr2[start2 + halfK]);
-  if (arr1[start1 + halfK - 1] < arr2[start2 + halfK - 1]) {
-    return findKth(arr1, arr2, start1 + halfK + 1, start2, k - halfK - 1);
-  } else {
-    return findKth(arr1, arr2, start1, start2 + halfK + 1, k - halfK - 1);
+
+  /* 超出范围 */
+  let gap, longStart;
+  let shortArr, longArr;
+  if (arr1.length < start1 + halfK) {
+    gap = arr1.length - start1;
+    shortArr = arr1;
+    longArr = arr2;
+    longStart = start2;
+  } else if (arr2.length < start2 + halfK) {
+    gap = arr2.length - start2;
+    shortArr = arr2;
+    longArr = arr1;
+    longStart = start1;
   }
+  if (gap != null)
+    return Math.max(shortArr[shortArr.length - 1] || -Infinity, longArr[longStart + k - gap]); 
+
+  /* 没超范围 */
+  if (arr1[start1 + halfK - 1] < arr2[start2 + halfK - 1])
+    return findKth(arr1, arr2, start1 + halfK, start2, k - halfK);
+  return findKth(arr1, arr2, start1, start2 + halfK, k - halfK);
 }
 
-findMedianSortedArrays([1,3,5,7,9], [2,4,6,8,10]);
-// console.log(findMedianSortedArrays([1,3,5,7,9], [2,4,6,8,10]));
+const test = (a,b) => {
+  for (let i = 0; i < 10; i++)
+    console.log(findKth(a, b, 0, 0, i));
+}
+
+const rst = test([6], [1,2,3,4,5,7,8]);
+
+// console.log(rst);
