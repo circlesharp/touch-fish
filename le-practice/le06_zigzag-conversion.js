@@ -3,7 +3,7 @@
  * @param {number} numRows
  * @return {string}
  */
-const convert = (s, numRows) => {
+const convert_silly = (s, numRows) => {
   if (numRows === 1)
     return s;
 
@@ -28,4 +28,24 @@ const convert = (s, numRows) => {
   return str;
 };
 
-console.log(convert('abcdefghijklmn', 4));
+const convert = (s, numRows) => {
+  if (numRows === 1)
+    return s;
+
+  const rstArr = Array(numRows).fill('');
+  const tickCapacity = numRows * 2 - 2;
+  const tick = Math.max(s.length / tickCapacity);
+  let row, idx = 0;
+  
+  for (let t = 0; t < tick; t++) {
+    for (row = 0; row < numRows; row++)
+      rstArr[row] += s[idx++] || '';
+    for (row = numRows - 2; row > 0; row--)
+      rstArr[row] += s[idx++] || '';
+  }
+  
+  return rstArr.join('');
+}
+
+console.log(convert_silly('abcdefghijklmn', 5));
+console.log(convert('abcdefghijklmn', 5));
