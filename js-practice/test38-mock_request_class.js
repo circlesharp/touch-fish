@@ -1,5 +1,4 @@
 /* 模拟分页请求接口 */
-
 class MockRequest {
   constructor(total, cb, delay = 500) {
     this.total = total;
@@ -8,14 +7,25 @@ class MockRequest {
   }
 
   _get(params) {
+    const rst = [];
+
+    /* 不需要分页 */
+    if (params == null || params.page == null) {
+      for (let i = 0; i < this.total; i++)
+        rst.push(this.cb({ page, pageSize }, i));
+
+      return rst;
+    }
+
     const { page, pageSize = 10 } = params;
+    /* 分页信息有误 */
     if (page < 1) return [];
 
+    /* 处理分页数据 */
     const start = pageSize * (page - 1);
-    const rst = [];
     for (let i = start; i < Math.min(this.total, start + pageSize); i++)
       rst.push(this.cb({ page, pageSize }, i));
-    
+
     return {
       data: {
         total: this.total,
