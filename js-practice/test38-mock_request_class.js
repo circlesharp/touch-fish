@@ -89,23 +89,40 @@ const test03 = async () => {
 };
 
 /* 解决数据库增加记录导致分页出现重复 */
+/* handlePagingRepeat */
 const handlePagingRepeat = require('./test39-paging_repeat');
 const test04 = () => {
-  const request = new MockRequest(33, i => i + 1);
+  const request = new MockRequest(33, i => ({id: i + 1}));
 
   const res1 = request.asyncGet({ page: 1 }).data.data;
 
-  // 操作数据库，增加两条数据
   request.unshiftDatabase(2);
   const res2 = request.asyncGet({ page: 2 }).data.data;
 
-  const rst = handlePagingRepeat(res1, res2);
-  console.log(rst);
+  request.unshiftDatabase(2);
+  const res3 = request.asyncGet({ page: 3 }).data.data;
+  
+  const rst = handlePagingRepeat(handlePagingRepeat(res1, res2), res3);
+  console.log(rst.map(i => i.id));
+}
+
+/* handlePagingRepeatConcated */
+const handlePagingRepeatConcated = require('./test40-paging_repeat_concated');
+const test05 = () => {
+  const request = new MockRequest(33, i => ({id: i + 1}));
+
+  const res1 = request.asyncGet({ page: 1 }).data.data;
+
+  request.unshiftDatabase(2);
+  const res2 = request.asyncGet({ page: 2 }).data.data;
+
+  console.log(handlePagingRepeatConcated([...res1, ...res2]));
 }
 
 if (require.main === module) {
   // test01();
   // test02();
   // test03();
-  test04();
+  // test04();
+  test05();
 }
