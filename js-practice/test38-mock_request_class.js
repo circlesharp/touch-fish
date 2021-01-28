@@ -89,13 +89,18 @@ const test03 = async () => {
 };
 
 /* 解决数据库增加记录导致分页出现重复 */
+const handlePagingRepeat = require('./test39-paging_repeat');
 const test04 = () => {
   const request = new MockRequest(33, i => i + 1);
 
-  console.log(request.asyncGet({ page: 1 }).data);
+  const res1 = request.asyncGet({ page: 1 }).data.data;
+
+  // 操作数据库，增加两条数据
   request.unshiftDatabase(2);
-  console.log(request.asyncGet({ page: 1 }).data);
-  console.log(request.asyncGet({ page: 2 }).data);
+  const res2 = request.asyncGet({ page: 2 }).data.data;
+
+  const rst = handlePagingRepeat(res1, res2);
+  console.log(rst);
 }
 
 if (require.main === module) {
