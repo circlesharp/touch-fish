@@ -3,28 +3,40 @@ class MockRequest {
   constructor(total, cb, delay = 500) {
     this.total = total;
     this.delay = delay;
-    this.cb = (cb != null) ? cb : ({ page, pageSize }, i) => `${i + 1} (${page}, ${pageSize})`;
+    this.cb = (cb != null) ? cb : i => i;
+    this.database = null;
+    this._initDatabase();
   }
 
+  // ========= 操作数据库 ===========
+  _initDatabase() {
+    const database = [];
+    for (let i = 0; i < this.total; i++)
+      database.push(this.cb(i));
+
+    this.database = database;
+  }
+  unshiftDatabase(n) {
+    const unshiftDatabase = [];
+    for (let i = 0; i < n; i++)
+      unshiftDatabase.push(this.cb(i + this.total));
+    
+    this.database = [...unshiftDatabase, ...this.database];
+    this.total += n;
+  }
+
+  // ========= get 请求数据 ===========
   _get(params) {
-    const rst = [];
+    let rst = [];
 
-    /* 不需要分页 */
-    if (params == null || params.page == null) {
-      for (let i = 0; i < this.total; i++)
-        rst.push(this.cb({ page, pageSize }, i));
-
-      return rst;
+    if (params == null || params.page == null) { // 不需要分页
+      rst = this.database;
+    } else { // 分页
+      const { page, pageSize = 10 } = params;
+      if (page < 1) return [];
+      const start = pageSize * (page - 1);
+      rst = this.database.slice(start, Math.min(this.total, start + pageSize));
     }
-
-    const { page, pageSize = 10 } = params;
-    /* 分页信息有误 */
-    if (page < 1) return [];
-
-    /* 处理分页数据 */
-    const start = pageSize * (page - 1);
-    for (let i = start; i < Math.min(this.total, start + pageSize); i++)
-      rst.push(this.cb({ page, pageSize }, i));
 
     return {
       data: {
@@ -35,12 +47,10 @@ class MockRequest {
       error_msg: '',
     };
   }
-
   /* 同步获取数据 */
   asyncGet(params) {
     return this._get(params);
   }
-
   /* 异步获取数据 */
   get(params) {
     return new Promise(resolve => {
@@ -68,7 +78,7 @@ const test02 = async () => {
 
 /* 自定义返回回调函数 */
 const test03 = async () => {
-  const cb = (_, i) => ({
+  const cb = i => ({
     id: `testID: id-${i}`,
     balance: i * 100,
     from: 'tf-test',
@@ -78,8 +88,19 @@ const test03 = async () => {
   request.get({ page: 3 }).then(console.log);
 };
 
+/* 解决数据库增加记录导致分页出现重复 */
+const test04 = () => {
+  const request = new MockRequest(33, i => i + 1);
+
+  console.log(request.asyncGet({ page: 1 }).data);
+  request.unshiftDatabase(2);
+  console.log(request.asyncGet({ page: 1 }).data);
+  console.log(request.asyncGet({ page: 2 }).data);
+}
+
 if (require.main === module) {
   // test01();
   // test02();
-  test03();
+  // test03();
+  test04();
 }
