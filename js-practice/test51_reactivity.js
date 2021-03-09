@@ -45,10 +45,10 @@
     }
   }
 
-  function autorun(update) {
+  function autorun(updater) {
     function wrapperUpdate() {
-      activeUpdate = wrapperUpdate;
-      update(); // 在 update 执行的过程中, dep.depend 执行, subscribers 集合
+      activeUpdate = wrapperUpdate; // 闭包会保留在全局的作用域里面
+      updater(); // 在 update 执行的过程中, dep.depend 执行, 更新 subscribers 集合
       activeUpdate = null;
     }
     wrapperUpdate();
@@ -56,10 +56,18 @@
 
   /* test */
   const dep = new Dep()
+
   const updateFun = () => {
-    dep.depend()
-    console.log('updated')
+    dep.depend() // 无声无息地被注册依赖
+    console.log('updated 1')
   }
+  const updateFun2 = () => {
+    dep.depend() // 无声无息地被注册依赖
+    console.log('updated 2')
+  }
+
   autorun(updateFun)
-  dep.notify()
+  autorun(updateFun2)
+  dep.notify()  // 无声无息地被监测到变化
+  dep.notify()  // 无声无息地被监测到变化
 })();
