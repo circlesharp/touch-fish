@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <!-- script 可以通过 代码注入 凭空出现 -->
+  <!-- http://www.domain.com?name=<script>alert(1)</script> -->
+  <!-- <div>{{name}}</div> -->
+  <div>
+    <script>alert('XSS')</script>
+  </div>
+
+  <script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
+  <script>
+    const html = filterXSS(`<h1 id="title">XSS Demo</h1><script>alert("xss");</scr` + `ipt>`);
+    console.log(html);
+  </script>
+</body>
+
+</html>
