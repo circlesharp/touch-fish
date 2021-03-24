@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    span {
+      font-size: 2em;
+    }
+
+    .item {
+      font-size: 2em;
+      text-align: center;
+      border: 1px solid #e5e4e9;
+    }
+
+    #grid-container{
+      display: grid;
+      grid-template-columns: 50px 50px 50px;
+      grid-template-rows: 50px 50px 50px;
+      background-color: #eee;
+    }
+
+    #outer-flex-container{
+      display: flex;
+      justify-content: center;
+      width: 150px;
+      background-color: #eee;
+    }
+    #inner-flex-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    #inner-flex-container .item {
+      /* margin (150 - 2 * (65)) / 4 */
+      margin: 5px;
+      width: 65px;
+      height: 65px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <span>grid</span>
+  <div id="grid-container" class="container">
+    <div class="item item-1">1</div>
+    <div class="item item-2">2</div>
+    <div class="item item-3">3</div>
+    <div class="item item-4">4</div>
+    <div class="item item-5">5</div>
+    <div class="item item-6">6</div>
+    <div class="item item-7">7</div>
+    <div class="item item-8">8</div>
+  </div>
+
+  <span id="flex">flex</span>
+  <div id="outer-flex-container">
+    <div id="inner-flex-container">
+      <div class="item item-1">1</div>
+      <div class="item item-2">2</div>
+      <div class="item item-3">3</div>
+      <div class="item item-4">4</div>
+    </div>
+  </div>
+
+  <script>
+    const domFlex = document.getElementById('inner-flex-container');
+    domFlex.addEventListener('click', function(event) {
+      this.removeChild(event.target);
+    });
+  </script>
+</body>
+</html>
