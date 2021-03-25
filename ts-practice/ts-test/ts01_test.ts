@@ -1,5 +1,3 @@
-function identity<T> (arg: T): T {
-  return arg;
-}
+import sayHello from "./ts02_module";
 
-let my: {<T>(arg: T): T} = identity;
+sayHello('world');
