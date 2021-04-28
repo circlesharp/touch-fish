@@ -15,7 +15,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.29.1"
+  },
   "devDependencies": {
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.3.0"
