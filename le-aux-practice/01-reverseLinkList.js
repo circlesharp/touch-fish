@@ -1,3 +1,7 @@
+/**
+ * ::: 递归反转链表的一部分 :::
+ */
+
 const reverse = head => {
   if (!head.next) {
     return head;
