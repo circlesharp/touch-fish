@@ -1,4 +1,4 @@
-const { hasCycle, detectCycle, middleNode, findNthFromEnd } = require('../04-doublePointers');
+const { hasCycle, detectCycle, middleNode, findNthFromEnd, reverseArray } = require('../04-doublePointers');
 const { getLinkList, arraifyLinkList } = require('../../utils/LinkList');
 
 describe('双指针技巧 - 快慢指针', () => {
@@ -47,5 +47,12 @@ describe('双指针技巧 - 快慢指针', () => {
     const preNode = findNthFromEnd(linkList2, 3 + 1);
     preNode.next = preNode.next.next;
     expect(arraifyLinkList(linkList2)).toEqual([1, 2, 3, 4, 6, 7]);
+  });
+});
+
+describe('双指针技巧 - 快慢指针', () => {
+  it('反转数组', () => {
+    const arr = [1, 2, 3, 4, 5, 6, 7];
+    expect(reverseArray(Array.from(arr))).toEqual(arr.reverse());
   });
 });

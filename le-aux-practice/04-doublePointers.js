@@ -8,6 +8,10 @@
  * 4. 寻找链表的倒数第 n 个元素
  * 
  * 二、左右指针
+ * 1. 二分查找(专题)
+ * 2. 两数之和(专题)
+ * 3. 反转数组
+ * 4. 滑动窗口算法(专题)
  */
 
 /* 1 判定链表中是否包含环 */
@@ -90,9 +94,27 @@ const findNthFromEnd = (head, n) => {
   return slow;
 };
 
+/* 5 反转数组 */
+const reverseArray = arr => {
+  let left = 0;
+  let right = arr.length - 1;
+  let temp;
+
+  while (left < right) {
+    temp = arr[left];
+    arr[left] = arr[right];
+    arr[right] = temp;
+    left += 1;
+    right -= 1;
+  }
+
+  return arr;
+};
+
 module.exports = {
   hasCycle,
   detectCycle,
   middleNode,
   findNthFromEnd,
+  reverseArray,
 };
