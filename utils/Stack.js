@@ -12,7 +12,7 @@ class Stack {
   }
 
   push(val) {
-    this.size.push(val)
+    this._stack.push(val);
     return true;
   }
 
