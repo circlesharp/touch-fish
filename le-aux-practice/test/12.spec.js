@@ -1,59 +1,46 @@
-const { PriorityQueue } = require('../12-binaryHeap');
+const { CrazyQueue, CrazyStack } = require('../12-crazyStackAndQueue');
 
-describe('PriorityQueue', () => {
-  it('insert', () => {
-    const priorityQueue = new PriorityQueue();
-    const arr = [1, 2, 3, 4, 5, 6, 7];
-    const rst = [
-      [1],
-      [2, 1],
-      [3, 1, 2],
-      [4, 3, 2, 1],
-      [5, 4, 2, 1, 3],
-      [6, 4, 5, 1, 3, 2],
-      [7, 4, 6, 1, 3, 2, 5],
-    ];
-    for (let i = 0; i < arr.length; i++) {
-      priorityQueue.insert(arr[i]);
-      expect(priorityQueue._getPQ()).toEqual(rst[i]);
-      expect(priorityQueue.getMax()).toEqual(arr[i]);
-    }
+describe('crazy queue', () => {
+  it('empty', () => {
+    const queue = new CrazyQueue();
+    expect(queue.empty()).toEqual(true);
   });
 
-  it('delete max', () => {
-    const priorityQueue = new PriorityQueue();
-    const arr = [1, 2, 3, 4, 5, 6, 7];
-    const rst = [
-      [6, 4, 5, 1, 3, 2],
-      [5, 4, 2, 1, 3],
-      [4, 3, 2, 1],
-      [3, 1, 2],
-      [2, 1],
-      [1],
-      [],
-    ];
-    for (let i = 0; i < arr.length; i++) {
-      priorityQueue.insert(arr[i]);
+  it('add, size, top, delete', () => {
+    const queue = new CrazyQueue();
+    const SIZE = 10;
+    for (let i = 0; i < SIZE; i++) {
+      queue.add(i);
     }
-    for (let i = 0; i < arr.length; i++) {
-      expect(priorityQueue.deleteMax()).toEqual(arr[arr.length - 1 - i]);
-      expect(priorityQueue._getPQ()).toEqual(rst[i]);
+
+    expect(queue.size()).toEqual(SIZE);
+    expect(queue.top()).toEqual(0);
+
+    for (let i = 0; i < SIZE; i++) {
+      expect(queue.delete()).toEqual(i);
+      expect(queue.size()).toEqual(SIZE - 1 - i);
     }
   });
+});
 
-  it('random test', () => {
-    const priorityQueue = new PriorityQueue();
-    const arr = [11, 2, 555, 3, 6646, 9, 1, 23, 56, 9090, 9090, 3];
-    const rst = Array.from(arr).sort((a, b) => b - a);
-    const result = [];
+describe('crazy stack', () => {
+  it('empty', () => {
+    const stack = new CrazyStack();
+    expect(stack.empty()).toEqual(true);
+  });
 
-    for (let i = 0; i < arr.length; i++) {
-      priorityQueue.insert(arr[i]);
+  it('push, size, top, pop', () => {
+    const stack = new CrazyStack();
+    const SIZE = 10;
+    for (let i = 0; i < SIZE; i++) {
+      stack.push(i);
     }
-    for (let i = 0; i < arr.length; i++) {
-      result.push(priorityQueue.deleteMax());
-    }
+    expect(stack.size()).toEqual(SIZE);
+    expect(stack.top()).toEqual(9);
 
-    expect(result).toEqual(rst);
-  })
+    for (let i = 0; i < SIZE; i++) {
+      expect(stack.pop()).toEqual(SIZE - 1 - i);
+      expect(stack.size()).toEqual(SIZE - 1 - i);
+    }
+  });
 });
