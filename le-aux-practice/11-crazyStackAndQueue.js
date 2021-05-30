@@ -42,6 +42,44 @@ class CrazyQueue {
   }
 }
 
+class CrazyStack {
+  constructor() {
+    this._queue = new Queue();
+    this._topVal = undefined;
+  }
+
+  size() {
+    return this._queue.size();
+  }
+
+  top() {
+    // 默认用户操作前先确保 size > 0
+    return this._topVal;
+  }
+
+  push(val) {
+    this._topVal = val;
+    this._queue.add(val);
+  }
+
+  pop() {
+    let size = this.size();
+    while (size > 2) {
+      this._queue.add(this._queue.delete())
+      size -= 1;
+    }
+
+    this._topVal = this._queue.top();
+    this._queue.add(this._queue.delete());
+    return this._queue.delete();
+  }
+
+  empty() {
+    return this._queue.empty();
+  }
+}
+
 module.exports = {
   CrazyQueue,
+  CrazyStack,
 };
