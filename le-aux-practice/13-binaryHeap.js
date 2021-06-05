@@ -4,10 +4,11 @@
 /* 通过 swim, sink 维护二叉堆的性质 */
 
 class PriorityQueue {
-  constructor(maxSize = 100) {
+  constructor(maxSize = 100, compareFn = i => i) {
     /* 第 0 位不使用 */
     this._pq = Array(maxSize + 1);
     this._len = 0;
+    this._compareFn = compareFn;
   }
 
   getMax() {
@@ -75,7 +76,7 @@ class PriorityQueue {
 
   /* 判断第 i 个元素是否比第 j 个小 */
   _less(i, j) {
-    return this._pq[i] < this._pq[j];
+    return this._compareFn(this._pq[i]) < this._compareFn(this._pq[j]);
   }
 
   _getPQ() {
@@ -97,4 +98,4 @@ class PriorityQueue {
 
 module.exports = {
   PriorityQueue,
-}
+};

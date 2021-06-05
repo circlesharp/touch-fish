@@ -56,4 +56,20 @@ describe('PriorityQueue', () => {
 
     expect(result).toEqual(rst);
   });
+
+  it('random test with compareFn', () => {
+    const priorityQueue = new PriorityQueue(100, i => i.weight);
+    const arr = [11, 2, 555, 3, 6646, 9, 1, 23, 56, 9090, 9090, 3];
+    const rst = Array.from(arr).sort((a, b) => b - a);
+    const result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+      priorityQueue.insert({ weight: arr[i] });
+    }
+    for (let i = 0; i < arr.length; i++) {
+      result.push(priorityQueue.deleteMax().weight);
+    }
+
+    expect(result).toEqual(rst);
+  });
 });
