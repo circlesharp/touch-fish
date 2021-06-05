@@ -1,28 +1,75 @@
 /* Design Twitter */
 
+const { PriorityQueue } = require('./13-binaryHeap');
+
 class Twitter {
 	constructor() {
 		this.timestamp = 0;
+		this.userMap = {}; // 映射 userID & user对象
 	}
 
 	/* user发表一条tweet动态 */
-	postTweet(userID, tweedID) {
+	postTweet(userID, tweedID, time = new Date()) {
+		if (!this.userMap.hasOwnProperty(userID)) {
+			this.userMap[userID] = new _User(userID);
+		}
 
+		this.userMap[userID].post(tweedID, time);
 	}
 
-	/* 返回该user关注的人(包括自己)最近的动态id，最多10条，从新到旧排序 */
-	getNewsFeed(userID) {
+	/* 返回该user关注的人(包括自己)最近的动态id，默认n条，从新到旧排序 */
+	getNewsFeed(userID, size = 5) {
+		const result = [];
+		if (!this.userMap.hasOwnProperty(userID)) {
+			return result;
+		}
 
+		const followeeIDs = this.userMap[userID].followed;
+		const tweetPQ = new PriorityQueue(followeeIDs.size, tweet => tweet.time);
+		for (const id of followeeIDs) {
+			const tweet = this.userMap[id].head;
+			if (!tweet) {
+				continue;
+			}
+			tweetPQ.insert(tweet);
+		}
+
+		while (tweetPQ.size() > 0) {
+			if (result.length === size) {
+				break;
+			}
+
+			const tweet = tweetPQ.deleteMax();
+			result.push(tweet.id);
+
+			if (tweet.next) {
+				tweetPQ.insert(tweet.next);
+			}
+		}
+
+		return result;
 	}
 
 	/* follower关注followee，如果id不存在则新建 */
 	follow(followerID, followeeID) {
+		if (!this.userMap.hasOwnProperty(followerID)) {
+			this.userMap[followerID] = new _User(followerID);
+		}
 
+		if (!this.userMap.hasOwnProperty(followeeID)) {
+			this.userMap[followeeID] = new _User(followeeID);
+		}
+
+		this.userMap[followerID].follow(followeeID);
 	}
 
 	/* follower取关followee，如果id不存在则啥也不干 */
 	unfollow(followerID, followeeID) {
+		if (this.userMap.hasOwnProperty(followerID)) {
+			return this.userMap[followerID].unfollow(followeeID);
+		}
 
+		return false;
 	}
 }
 
@@ -43,7 +90,7 @@ class _Tweet {
 class _User {
 	constructor(id) {
 		this.id = id;
-		this.followed = new Set();
+		this.followed = new Set([id]); // 先关注自己
 		this.head = null;
 	}
 

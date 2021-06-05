@@ -31,6 +31,10 @@ class PriorityQueue {
     return max;
   }
 
+  size() {
+    return this._len;
+  }
+
   /* 上浮第 k 个元素 */
   _swim(k) {
     const parentIdx = PriorityQueue._getParentIdx(k);

@@ -15,6 +15,7 @@ describe('PriorityQueue', () => {
     ];
     for (let i = 0; i < arr.length; i++) {
       priorityQueue.insert(arr[i]);
+      expect(priorityQueue.size()).toEqual(rst[i].length);
       expect(priorityQueue._getPQ()).toEqual(rst[i]);
       expect(priorityQueue.getMax()).toEqual(arr[i]);
     }
@@ -38,6 +39,7 @@ describe('PriorityQueue', () => {
     for (let i = 0; i < arr.length; i++) {
       expect(priorityQueue.deleteMax()).toEqual(arr[arr.length - 1 - i]);
       expect(priorityQueue._getPQ()).toEqual(rst[i]);
+      expect(priorityQueue.size()).toEqual(rst[i].length);
     }
   });
 
@@ -66,10 +68,12 @@ describe('PriorityQueue', () => {
     for (let i = 0; i < arr.length; i++) {
       priorityQueue.insert({ weight: arr[i] });
     }
+    expect(priorityQueue.size()).toEqual(arr.length);
+
     for (let i = 0; i < arr.length; i++) {
       result.push(priorityQueue.deleteMax().weight);
     }
-
+    expect(priorityQueue.size()).toEqual(0);
     expect(result).toEqual(rst);
   });
 });
