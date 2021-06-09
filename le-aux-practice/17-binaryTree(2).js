@@ -36,8 +36,31 @@ const _findArrayRangeMaxIndex = (arr, left, right) => {
   return maxIndex;
 }
 
+/* 105 preorder, inorder => binary tree */
+/* pre=[3,9,20,15,7], in=[9,3,15,20,7] => Tree[3,9,20,15,7] */
+const buildPreIn = (preorder, inorder) => {
+  return _buildPreIn(preorder, 0, preorder.length, inorder, 0, inorder.length);
+};
+const _buildPreIn = (preorder, preStart, perEnd, inorder, inStart, inEnd) => {
+  if (preStart >= perEnd || inStart >= inEnd) {
+    console.log(2444);
+    return null;
+  }
+
+  const nodeVal = preorder[preStart];
+  const inRootIdx = inorder.findIndex(i => i === nodeVal);
+  const preRightRootIdx = inRootIdx + 1; // 子树的节点一定是一致的
+  console.log(2333, nodeVal, inRootIdx, preRightRootIdx);
+
+  const root = TreeNode(nodeVal);
+  root.left = _buildPreIn(preorder, preStart + 1, preRightRootIdx, inorder, inStart, inRootIdx + 1);
+  root.right = _buildPreIn(preorder, preRightRootIdx, perEnd, inorder, inRootIdx + 1, inEnd)
+
+  return root;
+};
+
 module.exports = {
   constructMaximumBinaryTree,
-  _build,
+  buildPreIn,
   _findArrayRangeMaxIndex,
 }

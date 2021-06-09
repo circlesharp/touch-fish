@@ -1,7 +1,8 @@
 const Tree = require('../../utils/Tree');
 const {
-  constructMaximumBinaryTree,
   _findArrayRangeMaxIndex,
+  constructMaximumBinaryTree,
+  buildPreIn,
 } = require('../17-binaryTree(2)');
 
 describe('binary tree 2', () => {
@@ -26,4 +27,16 @@ describe('binary tree 2', () => {
     tree.root = _tree;
     expect(tree.traversal()).toEqual(expectNums);
   });
+
+  it('buildPreIn', () => {
+    /* pre=[3,9,20,15,7], in=[9,3,15,20,7] => Tree[3,9,20,15,7] */
+    const preorder = [3, 9, 20, 15, 7];
+    const inorder = [9, 3, 15, 20, 7];
+    const rst = [3, 9, 20, 15, 7];
+    const tree = new Tree([]);
+    console.log(tree);
+    const _tree = buildPreIn(preorder, inorder);
+    tree.root = _tree;
+    // expect(tree.traversal()).toEqual(rst);
+  })
 });
