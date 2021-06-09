@@ -1,8 +1,12 @@
 const Queue = require('./Queue');
 
 class Tree {
-  constructor(nums) {
-    this.root = Tree._Init(nums);
+  constructor(nums, recursive = false) {
+    if (recursive) {
+      this.root = Tree._InitRecursive([undefined, ...nums], 1);
+    } else {
+      this.root = Tree._Init(nums);
+    }
   }
 
   traversal() {
@@ -42,6 +46,18 @@ class Tree {
     }
 
     return root;
+  }
+
+  static _InitRecursive(nums, idx) {
+    if (idx >= nums.length) {
+      return null;
+    }
+
+    const node = Tree._GetNode(nums[idx]);
+    node.left = Tree._InitRecursive(nums, idx * 2);
+    node.right = Tree._InitRecursive(nums, idx * 2 + 1);
+
+    return node;
   }
 
   static _GetNode(val) {
