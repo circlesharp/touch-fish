@@ -36,13 +36,18 @@ class Tree {
     let child;
     for (let i = 1; i < nums.length; i++) {
       child = Tree._GetNode(nums[i]);
+
+      /* 先入栈，否则可能栈内没有元素 */
+      if (child != null) {
+        queue.add(child);
+      }
+
       if (i % 2) {
         node.left = child;
       } else {
         node.right = child;
         node = queue.delete();
       }
-      queue.add(child);
     }
 
     return root;
@@ -54,18 +59,27 @@ class Tree {
     }
 
     const node = Tree._GetNode(nums[idx]);
-    node.left = Tree._InitRecursive(nums, idx * 2);
-    node.right = Tree._InitRecursive(nums, idx * 2 + 1);
+    if (node) {
+      node.left = Tree._InitRecursive(nums, idx * 2);
+      node.right = Tree._InitRecursive(nums, idx * 2 + 1);
+    }
 
     return node;
   }
 
   static _GetNode(val) {
-    return {
-      data: val,
-      left: null,
-      right: null,
-    };
+    let node;
+    if (val == null) {
+      node = null;
+    } else {
+      node = {
+        data: val,
+        left: null,
+        right: null,
+      };
+    }
+
+    return node;
   }
 }
 
