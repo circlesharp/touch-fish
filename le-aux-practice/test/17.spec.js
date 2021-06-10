@@ -3,6 +3,7 @@ const {
   _findArrayRangeMaxIndex,
   constructMaximumBinaryTree,
   buildPreIn,
+  buildPostIn,
 } = require('../17-binaryTree(2)');
 
 describe('binary tree 2', () => {
@@ -34,9 +35,19 @@ describe('binary tree 2', () => {
     const inorder = [9, 3, 15, 20, 7];
     const rst = [3, 9, 20, 15, 7];
     const tree = new Tree([]);
-    console.log(tree);
     const _tree = buildPreIn(preorder, inorder);
     tree.root = _tree;
-    // expect(tree.traversal()).toEqual(rst);
-  })
+    expect(tree.traversal()).toEqual(rst);
+  });
+
+  it('buildPostIn', () => {
+    /* post=[5,6,7,4,2,8,9,3,1], in=[5,2,6,4,7,1,8,3,9] => Tree[1,2,3,5,4,8,9,6,7] */
+    const preorder = [5, 6, 7, 4, 2, 8, 9, 3, 1];
+    const inorder = [5, 2, 6, 4, 7, 1, 8, 3, 9];
+    const rst = [1, 2, 3, 5, 4, 8, 9, 6, 7];
+    const tree = new Tree([]);
+    const _tree = buildPostIn(preorder, inorder);
+    tree.root = _tree;
+    expect(tree.traversal()).toEqual(rst);
+  });
 });

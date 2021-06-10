@@ -36,25 +36,45 @@ const _findArrayRangeMaxIndex = (arr, left, right) => {
   return maxIndex;
 }
 
-/* 105 preorder, inorder => binary tree */
+/* LeetCode 105 preorder, inorder => binary tree */
 /* pre=[3,9,20,15,7], in=[9,3,15,20,7] => Tree[3,9,20,15,7] */
 const buildPreIn = (preorder, inorder) => {
   return _buildPreIn(preorder, 0, preorder.length, inorder, 0, inorder.length);
 };
 const _buildPreIn = (preorder, preStart, perEnd, inorder, inStart, inEnd) => {
   if (preStart >= perEnd || inStart >= inEnd) {
-    console.log(2444);
     return null;
   }
 
   const nodeVal = preorder[preStart];
   const inRootIdx = inorder.findIndex(i => i === nodeVal);
-  const preRightRootIdx = inRootIdx + 1; // 子树的节点一定是一致的
-  console.log(2333, nodeVal, inRootIdx, preRightRootIdx);
+  const leftSize = inRootIdx - inStart;
 
   const root = TreeNode(nodeVal);
-  root.left = _buildPreIn(preorder, preStart + 1, preRightRootIdx, inorder, inStart, inRootIdx + 1);
-  root.right = _buildPreIn(preorder, preRightRootIdx, perEnd, inorder, inRootIdx + 1, inEnd)
+  root.left = _buildPreIn(preorder, preStart + 1, preStart + leftSize + 1, inorder, inStart, inRootIdx);
+  root.right = _buildPreIn(preorder, preStart + leftSize + 1, perEnd, inorder, inRootIdx + 1, inEnd)
+
+  return root;
+};
+
+/* LeetCode 106 postorder, inorder => binary tree */
+/* post=[5,6,7,4,2,8,9,3,1], in=[5,2,6,4,7,1,8,3,9] => Tree[1,2,3,5,4,8,9,6,7] */
+const buildPostIn = (postorder, inorder) => {
+  return _buildPostIn(postorder, 0, postorder.length, inorder, 0, inorder.length);
+};
+
+const _buildPostIn = (postorder, postStart, postEnd, inorder, inStart, inEnd) => {
+  if (postStart >= postEnd) {
+    return null;
+  }
+
+  const rootVal = postorder[postEnd - 1];
+  const inRootIdx = inorder.findIndex(i => i === rootVal);
+  const leftSize = inRootIdx - inStart;
+
+  const root = TreeNode(rootVal);
+  root.left = _buildPostIn(postorder, postStart, postStart + leftSize, inorder, inStart, inRootIdx);
+  root.right = _buildPostIn(postorder, postStart + leftSize, postEnd - 1, inorder, inRootIdx + 1, inEnd);
 
   return root;
 };
@@ -62,5 +82,6 @@ const _buildPreIn = (preorder, preStart, perEnd, inorder, inStart, inEnd) => {
 module.exports = {
   constructMaximumBinaryTree,
   buildPreIn,
+  buildPostIn,
   _findArrayRangeMaxIndex,
 }
