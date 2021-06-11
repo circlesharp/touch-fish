@@ -30,6 +30,10 @@ class Tree {
   }
 
   static _Init(nums) {
+    if (!nums || !nums.length) {
+      return null;
+    }
+
     const queue = new Queue();
     const root = Tree._GetNode(nums[0]);
     let node = root;
