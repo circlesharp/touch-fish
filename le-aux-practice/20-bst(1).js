@@ -24,7 +24,7 @@ const _findKthSmallest = (root, k, info) => {
   }
 
   _findKthSmallest(root.right, k, info);
-}
+};
 
 /* method NO.2: BST's node with size information */
 const findKthSmallest_2 = (root, k) => {
@@ -43,7 +43,7 @@ const _findKthSmallest_2 = (root, k, info) => {
   }
 
   // 待续。。。
-}
+};
 
 /* LeetCode 538, 1038 BST转化累加树 */
 const convertBST = (root) => {
@@ -54,7 +54,7 @@ const convertBST = (root) => {
   _convertBST(root, info);
 
   return root;
-}
+};
 
 const _convertBST = (root, info) => {
   if (!root) {
@@ -65,10 +65,10 @@ const _convertBST = (root, info) => {
   info.sum += root.data;
   root.data = info.sum;
   _convertBST(root.left, info);
-}
+};
 
 module.exports = {
   findKthSmallest,
   findKthSmallest_2,
   convertBST,
-}
+};
