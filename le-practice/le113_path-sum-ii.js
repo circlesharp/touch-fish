@@ -4,7 +4,7 @@ const solution = (root, target) => {
   _traversal(root, target, result, path);
 
   return result;
-}
+};
 
 const _traversal = (root, target, result, path) => {
   /* 处理根节点 */
@@ -21,8 +21,8 @@ const _traversal = (root, target, result, path) => {
     }
   }
 
-  _traversal(root.left, target - root.val, result, path)
+  _traversal(root.left, target - root.val, result, path);
   _traversal(root.right, target - root.val, result, path);
 
   path.pop();
-}
+};

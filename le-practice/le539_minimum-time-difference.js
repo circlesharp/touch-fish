@@ -1,4 +1,4 @@
-const solution = arr => {
+const solution = (arr) => {
   // 1. 转数字
   for (let i = 0; i < arr.length; i++) {
     const [hour, min] = arr[i].split(':');
@@ -21,8 +21,8 @@ const solution = arr => {
   }
 
   return min;
-}
+};
 
-const arr = ["23:59", "00:00"];
+const arr = ['23:59', '00:00'];
 
 solution(arr);
