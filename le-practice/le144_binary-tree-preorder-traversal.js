@@ -1,23 +1,27 @@
 // * 先序遍历方法2 迭代法
-const solution = root => {
+const solution = (root) => {
   if (!root) return [];
 
   const result = [];
-  const stack = [root];
-  let node;
+  const stack = [];
+  let node = root;
 
-  while (stack.length) {
+  while (node || stack.length) {
+    while (node) {
+      // * 相当于 visit(node);
+      result.push(node.val);
+
+      // * 相当于 traversal(node.left);
+      stack.push(node);
+      node = node.left;
+    }
+
+    // * 控制器
     node = stack.pop();
-    result.push(node.val);
 
-    // * right left 顺序颠倒是为了后进先出
-    // * 用后进先出的结构因为递归是隐性的栈
-    if (node.right)
-      stack.push(node.right);
-
-    if (node.left)
-      stack.push(node.left);
+    // * 相当于 traversal(node.right);
+    node = node.right;
   }
 
   return result;
-}
+};

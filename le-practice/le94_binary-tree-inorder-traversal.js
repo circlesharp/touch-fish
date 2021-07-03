@@ -1,10 +1,11 @@
 // * 中序遍历方法2 迭代法
 const solution = (root) => {
+  if (!root) return [];
+
   const result = [];
   const stack = [];
   let node = root;
 
-  // * 相当于 traversal(node.right);
   while (node || stack.length) {
     // * 相当于 traversal(node.left);
     while (node) {
@@ -12,10 +13,13 @@ const solution = (root) => {
       node = node.left;
     }
 
-    // * 相当于 visit(node);
+    // * 控制器
     node = stack.pop();
+
+    // * 相当于 visit(node);
     result.push(node.val);
 
+    // * 相当于 traversal(node.right);
     node = node.right;
   }
 
