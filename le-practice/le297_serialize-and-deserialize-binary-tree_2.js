@@ -1,3 +1,5 @@
+// * 后序遍历
+
 const NULL = null;
 
 const serialize = root => {
@@ -16,22 +18,21 @@ const _traversal = (root, result) => {
     return;
   }
 
-  result.push(root.val);
-
   _traversal(root.left, result);
   _traversal(root.right, result);
+  result.push(root.val);
 }
 
 const deserialize = arr => {
   if (arr.length === 0) return null;
 
-  const val = arr.shift();
+  const val = arr.pop();
   if (val === NULL) {
     return null;
   } else {
-    const root = val === NULL ? null : new TreeNode(val);
-    root.left = deserialize(arr);
+    const root = new TreeNode(val);
     root.right = deserialize(arr);
+    root.left = deserialize(arr);
 
     return root;
   }
