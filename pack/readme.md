@@ -15,3 +15,12 @@ ps: 旧版支持 `--module-bind 'css=style-loader!css-loader'`
 一些参数：
 监听文件更新: `xxx --watch`
 构建进度: `xxx --progress`
+
+## 2 use-config
+
+维护一个 webpack.config.js 文件
+注意，使用 commonJS 规范
+`npx webpack --config ./src/02_use-config/webpack.config.js`
+
+可以写进 package.json 中
+`"pack02": "webpack --config ./src/02_use-config/webpack.config.js"`
