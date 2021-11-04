@@ -24,3 +24,27 @@ ps: 旧版支持 `--module-bind 'css=style-loader!css-loader'`
 
 可以写进 package.json 中
 `"pack02": "webpack --config ./src/02_use-config/webpack.config.js"`
+
+## 3 multi-entry
+
+entry 可以传入 string | Array | Object
+如果是多入口，需要同时设置 output, 并使用 ['name' | 'hash' | 'chunkhash']
+
+## 4 html-plugin
+
+### 插件
+
+插件需要先安装，并引入，在 plugins 的数组中，实例化插件
+`plugins: [new htmlWebpackPlugin()]`
+
+> webpack 也是有 context 的，也就是上下文
+
+### htmlWebpackPlugin
+
+可配置的参数： template， filename， inject...
+
+> 可以 npm 上看[详细文档](https://www.npmjs.com/package/html-webpack-plugin)
+
+支持 esj 语法插值
+`<%= htmlWebpackPlugin.options.customTitle %>`
+`<script src="<%= htmlWebpackPlugin.files.js[0] %>"></script>`
