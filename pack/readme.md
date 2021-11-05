@@ -41,10 +41,13 @@ entry 可以传入 string | Array | Object
 
 ### htmlWebpackPlugin
 
-可配置的参数： template， filename， inject...
+可配置的参数： template， filename， inject, chunks, excludeChunks...
 
 > 可以 npm 上看[详细文档](https://www.npmjs.com/package/html-webpack-plugin)
 
 支持 esj 语法插值
 `<%= htmlWebpackPlugin.options.customTitle %>`
 `<script src="<%= htmlWebpackPlugin.files.js[0] %>"></script>`
+
+直接注入 inline assets, 可减少请求次数
+`compilation.assets[...].source()`

@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack02": "webpack --config ./src/02_use-config/webpack.config.js",
     "pack03": "webpack --config ./src/03_multi-entry/webpack.config.js",
-    "pack04": "webpack --config ./src/04_html-plugin/webpack.config.js"
+    "pack04": "webpack --config ./src/04_html-plugin/webpack.config.js",
+    "pack05": "webpack --config ./src/05_multi-page/webpack.config.js"
   },
   "keywords": [],
   "author": "",
