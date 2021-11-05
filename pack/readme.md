@@ -61,3 +61,6 @@ entry 可以传入 string | Array | Object
 使用多个 loader 组合来处理样式文件
 postcss-loader 还可以使用插件
 [postcss-preset-env](https://www.npmjs.com/package/postcss-preset-env): lets you convert modern CSS into something most browsers can understand
+
+分别使用 html-loader, ejs-loader 来处理不同的模板文件
+ejs-loader 生成一个函数，使得模板能够接受参数

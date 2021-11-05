@@ -28,6 +28,21 @@ module.exports = {
         },
       },
       {
+        test: /\.html$/,
+        use: {
+          loader: 'html-loader',
+        },
+      },
+      {
+        test: /\.tpl$/,
+        use: {
+          loader: 'ejs-loader',
+          options: {
+            esModule: false, // By default, ejs-loader generates JS modules that use the ES modules syntax.
+          },
+        },
+      },
+      {
         test: /\.less$/,
         use: [
           { loader: 'style-loader' },
