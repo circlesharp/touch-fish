@@ -51,3 +51,9 @@ entry 可以传入 string | Array | Object
 
 直接注入 inline assets, 可减少请求次数
 `compilation.assets[...].source()`
+
+## 6 loader-and-assets
+
+使用 babel-loader 来处理 .js 文件
+
+> ps. 这个过程比较耗性能，记得 exclude node_module
