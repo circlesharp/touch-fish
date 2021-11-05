@@ -15,8 +15,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-loader": "^8.2.3",
     "css-loader": "^6.5.0",
     "html-webpack-plugin": "^5.5.0",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "postcss": "^8.3.11",
+    "postcss-loader": "^6.2.0",
+    "postcss-preset-env": "^6.7.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.61.0"
   },

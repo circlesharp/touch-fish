@@ -57,3 +57,7 @@ entry 可以传入 string | Array | Object
 使用 babel-loader 来处理 .js 文件
 
 > ps. 这个过程比较耗性能，记得 exclude node_module
+
+使用多个 loader 组合来处理样式文件
+postcss-loader 还可以使用插件
+[postcss-preset-env](https://www.npmjs.com/package/postcss-preset-env): lets you convert modern CSS into something most browsers can understand

@@ -27,6 +27,27 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.less$/,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              import: true, // 已经是默认为 true
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: ['postcss-preset-env'],
+              },
+            },
+          },
+          { loader: 'less-loader' },
+        ],
+      },
     ],
   },
 };

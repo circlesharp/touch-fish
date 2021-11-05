@@ -1,4 +1,5 @@
 import createLayer from './layer/layer';
+import './index.less';
 
 const { name } = createLayer();
 
