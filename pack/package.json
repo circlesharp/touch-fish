@@ -9,7 +9,8 @@
     "pack03": "webpack --config ./src/03_multi-entry/webpack.config.js",
     "pack04": "webpack --config ./src/04_html-plugin/webpack.config.js",
     "pack05": "webpack --config ./src/05_multi-page/webpack.config.js",
-    "pack06": "webpack --config ./src/06_loader-and-assets/webpack.config.js --progress"
+    "pack06": "webpack --config ./src/06_loader-and-assets/webpack.config.js --progress",
+    "pack07": "webpack --config ./src/07_vue/webpack.config.js --progress"
   },
   "keywords": [],
   "author": "",
@@ -18,14 +19,20 @@
     "babel-loader": "^8.2.3",
     "css-loader": "^6.5.0",
     "ejs-loader": "^0.5.0",
+    "file-loader": "^6.2.0",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "image-webpack-loader": "^8.0.1",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "postcss": "^8.3.11",
     "postcss-loader": "^6.2.0",
     "postcss-preset-env": "^6.7.0",
     "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
+    "vue": "^2.6.14",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14",
     "webpack": "^5.61.0"
   },
   "devDependencies": {
