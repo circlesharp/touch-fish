@@ -11,7 +11,7 @@
     "pack05": "webpack --config ./src/05_multi-page/webpack.config.js",
     "pack06": "webpack --config ./src/06_loader-and-assets/webpack.config.js --progress",
     "pack07": "cross-env NODE_ENV=production webpack --config ./src/07_vue/webpack.config.js --progress",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./src/07_vue/webpack.config.js"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./src/07_vue/webpack.config.js --stats-error-details"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
     "image-webpack-loader": "^8.0.1",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
+    "mini-css-extract-plugin": "^2.4.4",
     "postcss": "^8.3.11",
     "postcss-loader": "^6.2.0",
     "postcss-preset-env": "^6.7.0",

@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -39,19 +40,6 @@ const config = {
         ],
       },
       {
-        test: /\.css$/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options: {
-              import: true, // 已经是默认为 true
-              esModule: false,
-            },
-          },
-        ],
-      },
-      {
         test: /\.(gif|jpg|jpeg|png|svg)$/i,
         use: [
           // 请不要使用 file-loader
@@ -79,8 +67,46 @@ if (isDev) {
 
   config.plugins.push(
     // 简称 HMR
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   );
+
+  config.module.rules.push({
+    test: /\.css$/,
+    use: [
+      { loader: 'style-loader' },
+      {
+        loader: 'css-loader',
+        options: {
+          import: true, // 已经是默认为 true
+          esModule: false,
+        },
+      },
+    ],
+  });
+} else {
+  config.mode = 'production';
+  config.output.filename = '[name].[chunkhash:4].js';
+
+  config.plugins.push(
+    new MiniCssExtractPlugin({
+      filename: 'styles.[chunkhash:4].css',
+    })
+  );
+
+  config.module.rules.push({
+    test: /\.css$/,
+    use: [
+      { loader: MiniCssExtractPlugin.loader },
+      {
+        loader: 'css-loader',
+        options: {
+          import: true, // 已经是默认为 true
+          esModule: false,
+        },
+      },
+    ],
+  });
 }
 
 module.exports = config;
