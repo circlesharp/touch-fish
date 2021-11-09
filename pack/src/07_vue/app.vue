@@ -1,22 +1,30 @@
 <template>
 <div class="container">
   <div id="text">{{ text }}</div>
+  <input type="text" v-model="text">
+  <button @click="getEnvInfo">getEnvInfo</button>
 
-  <h2>img avatar</h2>
-  <img src="./assets/images/avatar.jpeg" style="width: 100px" alt="">
-
-  <h2>i avatar</h2>
-  <i class="avatar"></i>
+  <div class="wrapper-girls">
+    <Girls />
+  </div>
 </div>
 </template>
 
 <script>
+import Girls from './components/girls.vue';
+
 export default {
+  components: {Girls},
   data() {
     return {
-      text: 'abc',
+      text: 'test',
     }
-  }
+  },
+  methods: {
+    getEnvInfo() {
+      console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+    }
+  },
 }
 </script>
 

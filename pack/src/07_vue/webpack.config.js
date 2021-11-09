@@ -1,8 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-module.exports = {
+const isDev = process.env.NODE_ENV === 'development';
+
+const config = {
+  target: 'web',
   mode: 'development',
   entry: path.resolve(__dirname, './index.js'),
   output: {
@@ -11,6 +15,13 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        // 让代码里面也能读取到环境变量
+        // 要注意这里的语法 引号里面是一个变量
+        NODE_ENV: isDev ? '"development"' : '"production"',
+      },
+    }),
     new htmlWebpackPlugin({
       template: path.resolve(__dirname, './index.html'),
       filename: 'index.html',
@@ -57,3 +68,19 @@ module.exports = {
     ],
   },
 };
+
+if (isDev) {
+  config.devtool = 'eval-cheap-module-source-map'; // source map
+
+  config.devServer = {
+    port: 8000,
+    host: '0.0.0.0', // 可以同时使用 localhost 和 内网ip 访问
+  };
+
+  config.plugins.push(
+    // 简称 HMR
+    new webpack.HotModuleReplacementPlugin()
+  );
+}
+
+module.exports = config;

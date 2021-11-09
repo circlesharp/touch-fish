@@ -10,13 +10,15 @@
     "pack04": "webpack --config ./src/04_html-plugin/webpack.config.js",
     "pack05": "webpack --config ./src/05_multi-page/webpack.config.js",
     "pack06": "webpack --config ./src/06_loader-and-assets/webpack.config.js --progress",
-    "pack07": "webpack --config ./src/07_vue/webpack.config.js --progress"
+    "pack07": "cross-env NODE_ENV=production webpack --config ./src/07_vue/webpack.config.js --progress",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./src/07_vue/webpack.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel-loader": "^8.2.3",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.5.0",
     "ejs-loader": "^0.5.0",
     "file-loader": "^6.2.0",
@@ -33,7 +35,8 @@
     "vue": "^2.6.14",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14",
-    "webpack": "^5.61.0"
+    "webpack": "^5.61.0",
+    "webpack-dev-server": "^4.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
