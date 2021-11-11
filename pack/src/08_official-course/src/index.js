@@ -1,20 +1,15 @@
-import _, { divide } from 'lodash';
-import './style.css';
-import Icon from './icon.png';
+import _ from 'lodash';
+import printMe from './print';
 
 function component() {
   const element = document.createElement('div');
+  const btn = document.createElement('button');
+
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
+  element.appendChild(btn);
 
-  const myIcon = new Image();
-  myIcon.src = Icon;
-
-  const myIconFont = document.createElement('span');
-  myIconFont.innerHTML = '&#xe606';
-
-  element.appendChild(myIcon);
-  element.appendChild(myIconFont);
+  btn.innerHTML = 'Click me and check the console!';
+  btn.onclick = printMe;
 
   return element;
 }
