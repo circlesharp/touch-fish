@@ -2,7 +2,7 @@
   "name": "pack",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": "true",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack02": "webpack --config ./src/02_use-config/webpack.config.js",
@@ -11,12 +11,20 @@
     "pack05": "webpack --config ./src/05_multi-page/webpack.config.js",
     "pack06": "webpack --config ./src/06_loader-and-assets/webpack.config.js --progress",
     "pack07": "cross-env NODE_ENV=production webpack --config ./src/07_vue/webpack.config.js --progress",
+    "pack08": "cross-env NODE_ENV=production webpack --config ./src/08_official-course/webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./src/07_vue/webpack.config.js --stats-error-details"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.21",
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
     "babel-loader": "^8.2.3",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.0",
@@ -33,16 +41,10 @@
     "postcss-preset-env": "^6.7.0",
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1",
-    "vue": "^2.6.14",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.4.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
-    "webpack-cli": "^4.9.1"
   }
 }
