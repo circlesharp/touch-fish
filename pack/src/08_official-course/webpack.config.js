@@ -4,15 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    index: {
-      import: path.resolve(__dirname, './src/index.js'),
-      dependOn: 'shared',
-    },
-    another: {
-      import: path.resolve(__dirname, './src/another-module.js'),
-      dependOn: 'shared',
-    },
-    shared: 'lodash',
+    index: path.resolve(__dirname, './src/index.js'),
+    another: path.resolve(__dirname, './src/another-module.js'),
   },
   output: {
     filename: '[name].bundle.js',
@@ -32,6 +25,8 @@ module.exports = {
     static: path.resolve(__dirname, '../../dist/build08'),
   },
   optimization: {
-    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 };
