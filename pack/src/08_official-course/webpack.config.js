@@ -5,13 +5,11 @@ module.exports = {
   mode: 'development',
   entry: {
     index: path.resolve(__dirname, './src/index.js'),
-    another: path.resolve(__dirname, './src/another-module.js'),
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, '../../dist/build08'),
     clean: true,
-    publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -23,10 +21,5 @@ module.exports = {
     // http://[devServer.host]:[devServer.port]/[output.publicPath]/[output.filename]
     // 将 dist 目录下的文件 serve 到 localhost:8080 下, 默认就是 output.path
     static: path.resolve(__dirname, '../../dist/build08'),
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
   },
 };
