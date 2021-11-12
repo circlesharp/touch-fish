@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <label for="name">name:</label>
+    <p>name: {{name}}</p>
     <input type="text" id="name" v-model="name">
 
     <h2>img avatar</h2>

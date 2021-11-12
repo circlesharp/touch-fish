@@ -12,7 +12,8 @@ const config = {
   entry: path.resolve(__dirname, './index.js'),
   output: {
     path: path.resolve(__dirname, '../../dist/build07'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
+    clean: true,
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -27,6 +28,7 @@ const config = {
       template: path.resolve(__dirname, './index.html'),
       filename: 'index.html',
       inject: 'body',
+      title: '07 pack vue',
     }),
   ],
   module: {
@@ -41,17 +43,7 @@ const config = {
       },
       {
         test: /\.(gif|jpg|jpeg|png|svg)$/i,
-        use: [
-          // 请不要使用 file-loader
-          {
-            loader: 'url-loader', // 特色是使用 limit
-            options: {
-              limit: 1024000, // base64
-              name: '[name].[ext]',
-              esModule: false, // vue 执行 commonjs, 非 file-loader 默认的 es
-            },
-          },
-        ],
+        type: 'asset/resource',
       },
     ],
   },
@@ -86,7 +78,17 @@ if (isDev) {
   });
 } else {
   config.mode = 'production';
+  config.entry = {
+    main: path.resolve(__dirname, './index.js'),
+  };
   config.output.filename = '[name].[chunkhash:4].js';
+  config.output.publicPath = '/';
+
+  config.optimization = {
+    splitChunks: {
+      chunks: 'all',
+    },
+  };
 
   config.plugins.push(
     new MiniCssExtractPlugin({
