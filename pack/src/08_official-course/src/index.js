@@ -1,16 +1,19 @@
-import createBtns from './createBtns';
+import createText from './components/createText';
+import createBtns from './components/createBtns';
+// import createChart from ;
 
-async function getComponent() {
-  const element = document.createElement('div');
-  const { default: _ } = await import('lodash');
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+(async function () {
+  // 按需引入的
+  const eleText = await createText();
 
-  return element;
-}
+  // prefetch
+  const eleBtns = createBtns();
 
-getComponent().then((component) => {
-  const { preFetchBtn, showTimeBtn } = createBtns();
-  document.body.appendChild(component);
-  document.body.appendChild(preFetchBtn);
-  document.body.appendChild(showTimeBtn);
-});
+  // preload 强调与父级 bundle 一起加载
+  const { default: createChart } = await import('./components/createChart');
+  const eleChart = createChart();
+
+  document.body.appendChild(eleText);
+  document.body.appendChild(eleBtns);
+  document.body.appendChild(eleChart);
+})();

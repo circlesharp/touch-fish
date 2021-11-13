@@ -7,17 +7,21 @@ function createBtns() {
   showTimeBtn.innerText = 'log the time';
   showTimeBtn.onclick = handleShowTimeBtnClick;
 
-  return { preFetchBtn, showTimeBtn };
+  const eleBtns = document.createElement('div');
+  eleBtns.appendChild(preFetchBtn);
+  eleBtns.appendChild(showTimeBtn);
+
+  return eleBtns;
 }
 
 async function handlePreFetchBtnClick() {
-  const { default: moment } = await import('moment');
+  const { default: moment } = await import(/*webpackPrefetch: true*/ 'moment');
   window.$moment = moment;
 }
 
 async function handleShowTimeBtnClick() {
   if (window.$moment == null) {
-    console.log('还没有加载 moment.js');
+    console.warn('还没有加载 moment.js');
     return;
   }
 
