@@ -64,3 +64,47 @@ postcss-loader 还可以使用插件
 
 分别使用 html-loader, ejs-loader 来处理不同的模板文件
 ejs-loader 生成一个函数，使得模板能够接受参数
+
+## 8 webpack official
+
+### 代码分离
+
+1. 入口起点： 使用 entry 配置手动地分离代码
+2. 防止重复： 使用 Entry dependencies / SplitChunksPlugin 去重和分离 chunk
+3. 动态导入： 通过模块的内联函数调用来分离代码
+
+#### dependOn
+
+1. 配置 dependOn 选项，这样可以在多个 chunk 之间共享模块
+2. 如果一个 HTML 页面使用多个入口，需要设置 `optimization.runtimeChunk: 'single'`
+
+```js
+module.exports = {
+  // ...
+  optimization: {
+    runtimeChunk: 'single',
+  },
+};
+```
+
+#### SplitChunksPlugin
+
+1. 可以将公共的依赖模块提取到已有的入口 chunk 中，或者提取到一个新生成的 chunk
+
+```js
+module.exports = {
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+};
+```
+
+2. 由社区提供的 mini-css-extract-plugin
+
+#### 动态导入
+
+1. 使用 import() 语法, p.s. 相较于静态导入的 import
+2. webpack4 为 CommonJs 模块创建一个 artificial namespace 对象
+3. prefetch / preload
