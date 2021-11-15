@@ -4,7 +4,7 @@ import createBtns from './components/createBtns';
 
 (async function () {
   // 按需引入的
-  const eleText = await createText();
+  const eleText = createText();
 
   // prefetch
   const eleBtns = createBtns();
