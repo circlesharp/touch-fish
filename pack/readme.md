@@ -77,6 +77,7 @@ ejs-loader 生成一个函数，使得模板能够接受参数
 
 1. 配置 dependOn 选项，这样可以在多个 chunk 之间共享模块
 2. 如果一个 HTML 页面使用多个入口，需要设置 `optimization.runtimeChunk: 'single'`
+3. p.s. `runtimeChunk: 'single'` 能提取出 runtime bundle
 
 ```js
 module.exports = {

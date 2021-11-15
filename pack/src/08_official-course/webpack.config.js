@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, './src/index.js'),
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[chunkhash:4].js',
     path: path.resolve(__dirname, '../../dist/build08'),
     clean: true,
   },
@@ -21,5 +21,8 @@ module.exports = {
     // http://[devServer.host]:[devServer.port]/[output.publicPath]/[output.filename]
     // 将 dist 目录下的文件 serve 到 localhost:8080 下, 默认就是 output.path
     static: path.resolve(__dirname, '../../dist/build08'),
+  },
+  optimization: {
+    runtimeChunk: 'single',
   },
 };
