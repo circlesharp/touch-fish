@@ -306,9 +306,20 @@ V8 采用 分代式垃圾回收机制：新生代算法、老生代算法
 1. 用于获取嵌入页面的第三方页面数据、窗口间数据通信(html5 的新 api)
 2. 一个页面发送消息，另一个判断来源并接受消息
 
-## Event Loop
+## EventLoop
 
-todo
+### 什么是 task, job
+
+1. 宏任务 task 宿主(浏览器、Node)发起的
+   > setTimeout, setInterval, MessageChannel, I/O, setImmediate, script(整体代码块)
+2. 微任务 job JS 自身发起的
+   > requestAnimationFrame, MutationObserver, Promise, process.nextTick, queueMicroTask
+
+### 什么是 EventLoop
+
+1. 执行一个宏任务， 清空微任务队列
+2. 新创建的微任务会立即进入队列，不需要等下一次循环
+3. V8 对 promise 有优化， 连续的多个 then(3 个)如果没有 reject 或者 resolve 会交替执行 then 而不至于让一个堵太久完成用户无响应
 
 ## 存储
 
@@ -407,3 +418,58 @@ todo
 3. 设置独立图层（video， iframe， absolute|fix）
 4. CSS3 GPU 硬件加速（transform， opacity， filters, will-change）
 5. 放慢动画速度
+
+## HTTP 缓存
+
+### 缓存的分类
+
+1. 私有缓存(浏览器缓存): 只能用于单独用户，用于减少多余请求与更好离线体验
+2. 共享缓存(代理缓存)： 可以被多个用户使用，用于缓存热门资源减少拥堵与延迟，（可由 ISP，公司，service worker 提供）
+
+### 缓存操作的目标：
+
+1. 200 的 GET 请求
+2. 永久重定向（301），错误响应（404），不完全的响应（206）
+3. 除 GET 外的定义了 cache 键名的响应
+
+### 缓存控制
+
+1. Cache-Control， HTTP/1.1:
+   > no-store 没有缓存
+   > no-cache 缓存但重新验证(若未过期返回 304)
+   > private / public 默认私有
+   > max-age=seconds 保持新鲜的最大时间
+   > must-revalidate 校验
+2. Pragma, HTTP/1.0
+   > 相当于 Cache-Control： no-cache
+   > 但响应头没有明确定义此属性，不能替代 no-cache
+3. Expire, HTTP/1.0
+   > 失效的日期
+   > 缺点是受限于本地时间
+
+### 新鲜度与缓存验证
+
+1. 缓存驱逐： 因为空间有限
+2. 陈旧的不会直接删除，而是缓存验证（即 协商缓存）
+   > IF-None-Match: ETag 优先级较高，强校验，不透明
+   > If-Modified-Since: Last-Modified 时间会因本地修改而改变，弱校验，透明
+
+### 改进资源 (revving 技术)
+
+1. 适用于 长期不变动，变动需要尽快更新 的资源，如 js, css
+2. 做法： 使用命名区分，加上版本号，过期时间设置得尽可能长
+   > 能消除部分资源更新先后引起的不一致
+   > 引用的地方需要更新链接，可以通过构建工具解决，如 webpack
+
+### 合适的缓存策略
+
+1. 不需要的设置 no-store
+2. 频繁变动的设置采用校验
+3. 代码文件可尽可能设置长，并采用 revving 技术
+
+## 预 xx 懒 xx
+
+1. 预加载 rel=preload 强制浏览器请求资源
+2. 预渲染 rel=prerender 预先在后台渲染
+3. 懒执行 某些逻辑在使用的时候再执行
+4. 懒加载 不关键的资源延后加载
