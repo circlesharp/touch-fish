@@ -2,10 +2,10 @@
 
 ## 什么是盒子模型
 
-1. 盒子模型的组成：内容(content)、内边距(padding)、边框(border)、外边距(margin)
-2. 内边距位于内容和边框之间，一般用于隔离内容，内边距可以填充背景色
-3. 外边距位于盒子和盒子之间，一般用于隔离盒子，使得盒子与盒子有一定的间距
-4. 边框位于内边距和外边距之间
+1. 是渲染树经过 Layout 的产物
+2. 组成：内容(content)、内边距(padding)、边框(border)、外边距(margin)
+3. 标准盒模型(box-sizing: content-box)： width 就是 content 的 width
+4. 怪异盒模型(box-sizing: border-box)： width 就是 content + padding + border
 
 ## 实现垂直水平居中
 
@@ -92,6 +92,10 @@ undefined: 表示未定义，一般是指一个变量只是声明而没有赋值
 2. 这 4 个伪类特指度相同(a:hover 必须位于 a:link 和 a:visited 之后; a:active 必须位于 a:hover 之后)
 3. 一个链接可能同时处于多种状态，即同时属于多个伪类。
 4. link 和 visited 是常态效果，hover 和 active 是瞬时效果。
+
+## 伪类与伪元素
+
+todo
 
 ## img 的 alt 和 title 有什么区别
 
@@ -259,3 +263,147 @@ V8 采用 分代式垃圾回收机制：新生代算法、老生代算法
 1. From To 互换时， 若存活对象多（> 25%）, 转到老生代空间
 2. 优先启动 标记清楚算法（遍历，标记活对象，销毁没有被标记的）
 3. 内存碎片多时启动 标记压缩算法（将活对象向一端移动，清除碎片）
+
+# InfoQ - 浏览器
+
+## 事件机制
+
+### 事件触发 3 阶段
+
+1. 一般来说，是 document 往事件触发处传播，遇到注册的捕获事件会触发……即，捕获-目标-冒泡
+2. 如果给同一结点同时注册了冒泡和捕获，事件触发会按照注册的顺序来执行
+
+### 事件代理
+
+1. 利用事件冒泡机制，在父组件注册事件
+2. 优点是 节省内存、不需要给子组件注销事件
+
+## 跨域
+
+### 什么是跨域
+
+1. 出于安全原因，浏览器有同源策略（协议、域名、端口），跨域 ajax 会失败
+2. 解决方案： JSONP, CORS, document.domain, postMessage
+
+### JSONP
+
+1. 利用 script 标签没有跨域限制, 指向需要访问的地址，并提供一个回调函数接收数据
+2. 但只限于 GET
+
+### CORS
+
+1. 需要前后端同时支持
+2. 浏览器默认支持（IE9 需要 XDomainRequest 实现）
+3. 关键在于后端，可以通过 Access-Control-Allow-Origin 开启
+
+### document.domain
+
+1. 给页面添加 document.domain， 表示二级域名相同就可以实现跨域
+2. 但是不推荐使用该特性，MDN 表示被移出 web 标准了
+
+### postMessage
+
+1. 用于获取嵌入页面的第三方页面数据、窗口间数据通信(html5 的新 api)
+2. 一个页面发送消息，另一个判断来源并接受消息
+
+## Event Loop
+
+todo
+
+## 存储
+
+### Cookies
+
+1. 一般由服务器生成， 每次都会携带在 header 中， 可设置过期时间
+2. 大小为 4K
+3. 安全性： value 加密、http-only 不允许用 js 访问、secure 在 HTTPS 中携带、same-site 不能在跨域请求中携带
+
+### localStorage, sessionStorage, indexDB
+
+1. 一直存在 / 页面关闭就清理 / 一直存在
+2. 大小为： 5M / 5M / 不限
+3. 不参与服务端通信
+
+### Service Worker
+
+1. 本质上充当了 web app 与浏览器之间的代理服务器
+2. 在网络可用时，作为浏览器与网络间的代理
+3. 可增加离线体验， 可以用来做缓存文件
+
+## 渲染机制
+
+1. DOM + CSSOM = 渲染树
+2. Layout + Paint = display
+
+### 生成 DOM 树
+
+> 字节数据 -> 字符串 -> Token -> Node -> DOM
+
+1. 将字节数据按指定编码转成字符串
+2. 将字符串转成 Token: 开始/结束便签，文本
+3. 将 Token 转成节点对象(边生成 Token 边转换，可理解为后序遍历)
+
+### 生成 CSSOM 树
+
+> 流程同 DOM
+
+### 组合 render 树
+
+1. 不是简单合并，渲染树只包含可见的节点
+2. CSS 匹配 HTML 是消耗性能的，因为要对树进行深度优先的遍历
+
+### 遇到 js 怎么办
+
+1. js 直接阻塞 DOM 构建： GUI 渲染线程与 JS 引擎线程是互斥的
+2. CSSOM 间接阻塞 DOM 构建： 因为不完整的 CSSOM 不可用，会阻塞 js 执行（尽管不涉及 js 时是并行的）
+
+### script 的 async, defer
+
+> DOM - deferScript - DOMContentLoaded - load
+> asyncScript - load
+
+1. 默认是加载后立即执行
+2. defer 是延迟执行： DOM 解析完毕后， DOMContentLoaded 前执行, 不阻塞 DOM 构建
+3. async 是异步执行： 与 DOM、DOMContentLoaded 无关，只要加载好了就执行
+4. 加载多个 script 时，defer 是有序的， async 是无序的
+
+### Load 与 DOMContentLoaded
+
+1. Load: 页面的 DOM、css、JS、图片 全部加载完毕
+2. DOMContentLoaded: 初始的 HTML 被完成加载和解析, 不需要等待 css、JS、图片, 除非是 deferScript
+
+### Layout (布局、回流、重排)
+
+1. (render tree) => 盒模型， 侧重于元素的位置、大小
+2. 当页面的布局、几何信息改变，就要回流
+
+> 导致回流的操作
+>
+> > 浏览器窗口尺寸变化, 增删可见的 DOM, 元素尺寸、内容的变化, 激活 CSS 伪类
+>
+> 导致回流的属性和方法
+>
+> > ${client|offset|scroll}${Width|Height|Top|Left}
+
+### Paint (绘制、重绘)
+
+1. 将节点转换为屏幕中的实际像素
+2. 元素样式改变但不影响在文档流中的位置， 触发重绘
+
+> 导致重绘的操作
+>
+> > color, background-color, visibility
+
+### 浏览器对回流重绘的优化机制
+
+1. 浏览器维护一个队列进行批处理，多次操作变成一次
+2. 当访问如下属性或方法，浏览器不得不清空队列，以得到精确到值
+   > ${client|offset|scroll}${Width|Height|Top|Left}, width, height, getBoundingClientRect(), getComputedStyle()
+
+### 开发者对回流重绘的优化
+
+1. 让元素脱离文档流（隐藏元素 display、使用文档片段 createDocumentFragment、拷贝节点再替换 cloneNode）
+2. 避免触发同步布局事件（不要再 for 循环中引起回流）
+3. 设置独立图层（video， iframe， absolute|fix）
+4. CSS3 GPU 硬件加速（transform， opacity， filters, will-change）
+5. 放慢动画速度
