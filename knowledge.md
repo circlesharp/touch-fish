@@ -473,3 +473,174 @@ V8 采用 分代式垃圾回收机制：新生代算法、老生代算法
 2. 预渲染 rel=prerender 预先在后台渲染
 3. 懒执行 某些逻辑在使用的时候再执行
 4. 懒加载 不关键的资源延后加载
+
+# Vue
+
+## 对 SPA 的理解
+
+1. 单页应用，仅在页面初始化的时候加载对应的资源，使用路由机制实现视图变化避免页面重新加载
+2. 用户体验好，能避免不必要的跳转、重复渲染
+3. 对服务器压力小
+4. 初次加载耗时长
+5. 不利于 SEO
+
+## v-show 与 v-if
+
+1. v-if 是条件渲染，会销毁与重建组件，也是惰性的
+2. v-show 是采用了 display 属性，组件会初始化，但频繁切换开销少
+
+## Class 与 Style 动态绑定
+
+1. 都有对象语法和数组语法
+2. class 的对象语法值是 boolean, style 的对象语法值是 css 属性值
+3. class 的数组语法值是 className, style 的数组语法值是 css 属性键值对
+
+## 单向数据流
+
+1. 父子通过 props 行程单向下行绑定
+2. 子不能修改 props, 只能通过 $emit 派发事件
+3. 可以将 props 作为 data 的初始值
+4. 可以定义一个依赖 props 的计算属性
+
+## computed 和 watch
+
+1. 计算属性可依赖多个属性值，有缓存
+2. watch 是监听回调，允许异步操作，允许中间态
+
+## 如何给数组项赋值
+
+1. 使用 Vue.set / vm.$set
+2. 使用 Array.prototype.splice
+
+## 生命周期
+
+1. beforeCreate: 实例被创建之初，属性生效之前
+2. created: 实例已创建，属性已绑定
+3. beforeMount: render 首次被调用
+4. mounted: el 被 vm.$el 替代，挂载到实例上
+5. beforeUpdate: 组件数据更新(virtual DOM re-render and patch)前
+6. update: 组件数据更新之后
+7. activated: keep-alive 专属，组件被激活时调用
+8. deactivated: keep-alive 专属，组件失活时调用
+9. beforeDestroy: 组件销毁前调用
+10. destroyed: 组件销毁后调用
+
+## 父子组件的生命周期
+
+1. 加载时, 关键是 beforeMount 调用 render
+   > 父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
+2. 销毁时
+   > 父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed
+
+## 在哪个生命周期内调用异步请求
+
+1. created, beforeMount, mounted 都可以，因为实例属性已生效
+2. 推荐 created, 因为时间更快；且 SSR 不支持 beforeMount, mounted
+
+## 父组件监听子组件的生命周期
+
+1. 做法一： 子组件在钩子上派发事件
+2. 做法二： 父组件监听 @hook:钩子名
+
+## keep-alive
+
+1. 是组件，一个抽象组件，不会渲染 DOM，也不会出现在组件的父组件链中
+2. 用于包裹动态组件，缓存失活的组件实例而非销毁
+3. 支持 include, exclude, max 有条件缓存
+
+## data 为什么是一个函数
+
+1. 组件是用于复用的，但对象是一个引用，相当于作用域没有隔离
+2. 能维护一份被返回的独立的拷贝，不相互干扰
+3. Vue 是一个单例，不需要是函数
+
+## v-model 原理
+
+1. 语法糖
+   > text, textarea => :value @input
+   > checkbox, radio => :checked @change
+   > select => :value @change
+2. 可自定义
+   > :value, @input
+
+## Vue 组件间通信
+
+0. 组件间由 3 类： 父子、隔代、兄弟
+1. props / $emit 适用于父子
+2. ref, $parent / $children 适用于父子
+3. EventBus($emit / $on) 以空 Vue 实例作为中央事件总线，适用任何组件间通信
+4. VueX 核心是 store, 用于存储 state, 是响应式的，改变 state 的方法是显式地 commit， 适用任何组件间通信
+5. provide / inject 主动提供与依赖注入， 适用于隔代
+6. $attrs / $listeners
+
+## 详解 VueX
+
+1. 是状态管理，核心是 store, 装的是 state
+2. 是响应式的
+3. 改变状态需要显式地 commit mutation
+4. 具有 5 个核心模块:
+   > 1. State: 单一状态树，应用的状态与初始化
+   > 2. Getter: 获取数据
+   >    > -- `vm.$store.state.xxx`
+   >    > -- `computed: ...mapGetters([xxx, xxx])`
+   > 3. Mutation: 唯一的变更状态的方法(mutate State)，同步的
+   >    > -- `vm.$store.commit(xxx)`
+   >    > -- `methods: ...mapMutations([xxx] / {alias: xxx})`
+   > 4. Action: 用于提交 mutation (commit mutation), 支持异步
+   >    > -- `vm.$store.dispatch(xxx)`
+   >    > -- `methods: ...mapActions(同 mapMutations)`
+   > 5. Module: 用于拆分单个 Store
+
+## vue-router 路由模式
+
+1. hash: URL hash 值作为路由
+2. history: 依赖 HTML5 History api 和服务器配置
+3. abstract: 支持所有 js 的运行环境，包括 Node.js
+
+## hash 模式
+
+1. 基于 location.hash 实现： a:href 或者 对 location.hash 赋值
+2. hash 是客户端的一种状态，不会发请求
+3. hash 值改变能在改变访问历史
+4. 通过 hashchange 事件监听
+
+## history 模式
+
+1. 基于 history.pushState, history.replaceState 实现
+2. 不刷新页面下操作访问历史
+3. 需要手动触发 popstate
+
+## MVVM
+
+1. View 页面
+2. Model 数据 (api)
+3. ViewModel 我们写的组件
+
+## 数据双向绑定
+
+0. 含义： View --event--> Date, Date --bind--> View
+1. 监听器 Observer 对数据对象递归遍历， Object.defineProperty 数据劫持
+2. 解析器 Compile 解析模板，对有数据绑定的节点绑定更新函数，添加订阅；
+3. 订阅者 Watcher 订阅 Observer 并触发 Compile 的更新函数
+4. 订阅器 Dep 采用发布订阅模式，收集 Watcher
+
+## 怎么监听对象和数组
+
+1. defineProperty 只能对属性进行劫持， 而非整个对象
+2. 递归，对树遍历
+
+## 如何新增属性
+
+1. 使用 Vue.set / vm.$set
+2. 如果是数组，泽使用 splice 方法
+3. 如果是对象，判断属性是否存在，是否响应式，再调用 defineReactive(即 数据劫持)
+
+## 虚拟 DOM
+
+保证了性能的下限、无需手动操作 DOM(双向绑定的基础)、跨平台
+
+1. 是用 JS 对象模拟真实 DOM
+2. diff 算法比较差异
+   > 节点替换， 顺序替换， 属性更改， 文本改变
+3. patch 算法打补丁到真实 DOM
+   > 因为会复用（如文本改变），所以会需要唯一标记 key

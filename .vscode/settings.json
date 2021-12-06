@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["CSSOM", "prerender", "proto", "typeof"]
+  "cSpell.words": [
+    "CSSOM",
+    "hashchange",
+    "MVVM",
+    "popstate",
+    "prerender",
+    "proto",
+    "typeof"
+  ]
 }
