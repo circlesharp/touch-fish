@@ -7,6 +7,7 @@
     "popstate",
     "prerender",
     "proto",
+    "readline",
     "typeof"
   ]
 }
