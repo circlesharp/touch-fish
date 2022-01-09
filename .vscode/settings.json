@@ -4,6 +4,7 @@
     "hashchange",
     "IIFE",
     "MVVM",
+    "Nonterminal",
     "popstate",
     "prerender",
     "proto",
