@@ -905,3 +905,161 @@ s1 = null
 ### global
 1. encodeURI, encodeURIComponent: 用特殊的 utf-8 字符对无效字符编码
 2. …… 略
+
+# 面向对象的程序设计 - 红宝书
+对象的定义: 无序属性的集合 (ES 没有类的概念)
+
+## 1 理解对象
+
+### 特征值
+特征值用于描述属性 (property) 的各种特征, 可分为数据属性&访问器属性.  
+数据属性包含一个数据值的位置, 可以读取和写入  
+访问器属性不包含数据值, 包含一对 getter, setter 
+
+通过 defineProperty 或 defineProperties 定义  
+通过 getOwnPropertyDescriptor 获取给定属性的描述符
+
+1. 数据属性: `[[Configurable]], [[Enumerable]], [[Writable]], [[Value]]`
+   1. configurable: 能否通过 delete 删除, 能否修改属性的特性, 能否把属性修改为访问器属性
+   2. enumerable: 能否通过 for-in 循环
+   3. writable: 能否修改属性的值
+   4. value: 这个属性的数据值
+2. 访问器属性: `[[Configurable]], [[Enumerable]], [[Get]], [[Set]]`
+   1. get: 在读取属性时调用
+   2. set: 在写入属性时调用
+
+## 2 创建对象
+
+### 1 工厂模式
+没有解决对象的识别问题, 不能判断类型  
+
+``` js
+function createPerson(name, age, job) {
+  const o = new Object();
+  o.name = name;
+  o.age = age;
+  o.job = job;
+  o.sayName = function() {
+    console.log(this.name);
+  }
+
+  return o;
+}
+```
+
+### 2 构造函数模式
+可以将构造函数的示例标识为一种特定的类型; 但是每个方法都要在每个示例上重新创建一遍  
+
+```js
+function Person(name, age, job) {
+   this.name = name;
+   this.age = age;
+   this.job = job;
+   this.sayName = function() {
+   console.log(this.name);
+   }
+}
+```
+
+### 3 原型模式
+
+#### 理解原型对象
+1. 只要创建了函数, 该函数就会有一个 prototype 属性, 这个属性指向它的原型对象
+2. 这个原型对象也会有一个 constructor 属性, 指向这个函数
+3. 这个原型对象仅有一个属性, 其他属性是继承 Object 的
+4. 这个函数的实例有 `[[Prototype]]` 指针指向原型对象, 实现为 `__proto__`
+5. 注意: 构造函数和实例之间没有直接关系, 需要通过原型对象
+6. isPrototypeOf: `Constructor.prototype.isPrototypeOf(instance) => Boolean`, (会沿着原型链回溯的)
+7. getPrototypeOf: `Object.getPrototypeOf(instance) => Constructor.prototype`
+8. hasOwnProperty: `Object.prototype.hasOwnProperty(string) => Boolean`, 用于判断实例属性或原型属性
+
+#### 原型与 in 操作符
+有 2 种方式使用 in 操作符: `for-in, in`
+
+1. 在单独使用时, 无论属性在实例中还是在原型中
+2. 在 for-in 中, 无论属性在实例中还是在原型中, 但必须是可枚举
+3. 如果要获取实例上的所有属性, 用 `Object.getOwnPropertyNames`
+4. 如果要获取 for-in 的效果, 获取可枚举的属性的数组, 用 `Object.keys`
+5. 如果要重写原型对象的 constructor 属性, 要设置不可枚举
+
+#### 原型模式的缺点
+1. 构造函数不能传参, 所有实例在默认下都取得相同的值
+2. 共享: 对与函数非常合适, 但是对属性, 特别是值是引用类型的属性, 问题很大
+
+### 4 组合使用构造函数模式和原型模式
+每个实例都有自己的一份实例属性的副本, 同时又共享着对方法的引用;  
+还支持向构造函数传递参数  
+
+``` js
+function Person(name, age) {
+   this.name = name;
+   this.age = age;
+}
+
+Person.prototype = {
+   constructor: Person,
+   sayName() {
+   console.log(this.name);
+   }
+}
+```
+
+### 5 动态原型模式
+1. 把所有信息都封装在构造函数中, 包括原型的初始化
+2. 同时保持了构造函数和原型的优点
+
+``` js
+function Person(name, age) {
+   this.name = name;
+   this.age = age;
+
+   if (typeof this.sayName !== 'function') {
+      Person.prototype.sayName = function() {
+         console.log(this.name);
+      };
+   }
+}
+```
+
+### 6 寄生构造函数模式
+1. 很像工厂模式, 封装了创建对象的代码, 并返回
+2. 但是用 new, 所以成了构造函数
+3. 缺点: 返回的对象与构造函数的原型对象没有联系
+
+``` js
+function Person(name, age, job) {
+   const o = new Object();
+   o.name = name;
+   o.age = age;
+   o.job = job;
+   o.sayName = function() {
+      console.log(this.name);
+   }
+
+   return o;
+}
+
+new Person();
+```
+
+### 7 稳妥构造函数模式
+1. 没有公共属性
+2. 其方法也不引用 this
+3. 不用 new, 闭包的原理
+4. 缺点: 返回的对象与构造函数的原型对象没有联系
+
+``` js
+function Person(name) {
+   const obj = new Object();
+
+   // 受保护的属性在此定义
+
+   obj.getName = function() {
+      return name;
+   }
+
+   return obj;
+}
+
+const person = Person();
+```
