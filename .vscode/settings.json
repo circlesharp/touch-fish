@@ -3,6 +3,7 @@
     "CSSOM",
     "hashchange",
     "IIFE",
+    "instanceof",
     "MVVM",
     "Nonterminal",
     "popstate",

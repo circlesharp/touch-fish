@@ -163,6 +163,41 @@ function create(Constructor, ...args) {
 1. 能正确判断类型
 2. 机制是判断对象原型链中能否找到类型的 prototype
 
+``` js
+function myInstanceOf(left, right) {
+  let proto = left.__proto__;
+  while(proto) {
+    if (proto === right.prototype) return true;
+    proto = proto.__proto__;
+  }
+  return false;
+}
+```
+
+## 继承
+1. 要体现 super
+2. 原型的 _proto_ 要指向被继承的构造函数的原型
+3. 原型的 constructor 要指向本构造函数
+
+``` js
+function Person(name) {
+  if (!(this instanceof Person)) throw Error('error');
+  this.name = name;
+}
+Person.prototype.sayHi = function() {console.log('I am:', this.name);}
+
+function Student(name, grade) {
+  // super
+  Person.call(this, name);
+  this.grade = grade;
+}
+// 修改原型, 拷贝过的原型的 __proto__ 是这个 Person.prototype
+Student.prototype = Object.create(Person.prototype);
+// 修改原型链 - constructor
+Student.prototype.constructor = Student;
+Student.prototype.getGrade = function() {console.log('I am in grade:', this.grade);}
+```
+
 ## 深浅拷贝
 
 ### 浅拷贝
@@ -738,3 +773,135 @@ function solution() {}
 const line = readline();
 console.log(solution(line));
 ```
+
+# 引用类型 - 红宝书
+引用类型的值（对象）是引用类型的一个实例。在ES中，引用类型是一种数据结构，用于将数据和功能组织在一起。（它也常被称为类，或被称为对象定义）。
+
+## 1 Object
+`new Object();` 或 `{}`
+
+## 2 Array
+
+### 检测方法
+1. `xx instanceof Array`，缺点是如果存在多个全局执行环境，可能报错
+2. `Array.isArray` 推荐
+
+### 转换方法
+1. toString: 调用每个元素的 toString 方法，并通过逗号拼接
+2. toLocaleString: 调用每个元素的 toLocaleString 方法，并通过逗号拼接
+3. valueOf: 返回数组自身
+
+### 重排序方法
+1. reverse: 反转
+2. sort(): 比较每一个调用 toString 的值
+3. sort(cb)
+
+## 3 Date
+UTC: Coordinated Universal Time 国际协调时间
+GMT: Greenwich Mean Time 格林尼治标准时间
+
+GMT = UTC + 0
+
+### 如何创建日期对象
+1. 传入该日期的毫秒数
+2. Date.parse()：接受一个表示日期的字符串参数
+3. Date.UTC()：接受 年、月、日、时、分、秒
+
+### Date 的继承方法
+1. toString, toLocaleString: 返回字符串，但是不同浏览器差异较大
+2. valueOf: 时间戳
+
+## 4 RegExp
+
+### RegExp 的实例属性
+1. global
+2. ignoreCase
+3. multiline
+4. source
+5. lastIndex
+
+### RegExp 的实例方法
+1. regExp.exec(string)：专为捕获组设计，返回第一个匹配项信息的数组，数组含 index, input 属性
+2. regExp.test(string)：返回布尔值
+
+## 5 Function
+函数是对象，函数名是指针
+`var sum = new Function('num1', 'num2', 'return num1 + num2;')`
+
+### 函数声明与函数表达式
+1. 函数声明：`function a() {}`
+2. 函数表达式：`var a = function() {}`
+3. 函数声明提升：能实现“先调用后声明”
+
+### 函数内部属性
+1. arguments：是一个类数组对象
+   1. arguments.callee 属性指向拥有这个 arguments 的函数
+   2. arguments.caller 属性指向调用当前函数的函数
+2. this: 引用的是函数执行的环境对象
+
+### 函数的属性
+1. length: 希望接收的命名参数的个数
+2. prototype: 是保存所有实例方法的真正所在
+
+### 函数的方法
+1. call
+2. apply
+3. bind
+
+## 6 基本包装类型
+对于 Boolean, Number, String：每当读取到一个基本类型的时候，后台会创建一个对应的基本包装类型的对象
+
+``` js
+// 1 创建 String 类型的一个实例
+// 2 在实例上调用指定的方法
+// 3 销毁这个实例
+
+// == origin ==
+var s1 = 'str'
+var s2 = s1.substring(2)
+
+// == new ==
+var s1 = new String('str')
+var s2 = s1.substring(2)
+s1 = null
+```
+
+### 基本包装类型与引用类型的差别
+体现在对象的生存期上：
+1. 引用类型一直保存在内存中
+2. 自动创建的包装类型的对象，则只存在于一代码的执行瞬间，然后立即销毁
+
+### Number 类型
+1. valueOf: 返回基本类型的数值
+2. toString(基数): 进制转换 p.s. 不同于 Number.parseInt(str, base) 转为十进制
+3. toFixed(n): 指定小数位
+4. toExponential(n): 指数表示法(e表示法)
+5. toPrecision(位数): 视情况
+
+### String 类型
+1. 字符方法：
+   1. charAt(n): 相对于 str[n]
+   2. charCodeAt(n): 获取 str[n] 的 ascii 编码
+2. 字符串操作方法：
+   1. concat(...strs): str + ...
+   2. slice(startIdx, endIdx), substring(startIdx, endIdx): 负数下表现不一致
+   4. substr(startIdx, n): 子串长度为n
+3. 字符串位置方法
+   1. indexOf
+   2. lastIndexOf
+4. trim 删除前置和后缀的空格
+5. 大小写转换方法
+   1. toUpperCase, toLocaleUpperCase
+   2. toLowerCase, toLocaleLowerCase
+6. 模式匹配方法
+   1. String.prototype.match: 相当于 RegExp.prototype.exec
+   2. String.prototype.search: 返回的是索引
+   3. String.prototype.replace(String | RegExp, String | Function)
+   4. String.prototype.split(String | RegExp [, n]): 第二个参数限定数组长度
+7. String.fromCharCode: 一个或多个字符编码转字符串
+
+## 7 单体内置对象
+
+### global
+1. encodeURI, encodeURIComponent: 用特殊的 utf-8 字符对无效字符编码
+2. …… 略
