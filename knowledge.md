@@ -1063,3 +1063,77 @@ function Person(name) {
 
 const person = Person();
 ```
+
+## 3 继承
+
+### 0 确定原型和实例的方法
+1. instanceof: `instance instanceof Constructor`
+2. isPrototypeOf: `Constructor.prototype.isPrototypeOf(instance)`
+
+### 1 原型链
+1. 缺点1: 包含了引用类型值的原型, 所有实例会相互干扰
+2. 缺点2: 创建子类型的实例时, 不能向父类的构造函数传参
+
+``` js
+function SubType() {}
+
+SubType.prototype = new SuperType();
+SubType.prototype.getSubName = function() {};
+```
+
+### 2 借用构造函数
+1. 能够向父类传递参数
+2. 缺点: 函数无法复用
+
+``` js
+function SubType() {
+   SuperType.call(this)
+}
+```
+
+### 3 组合继承
+这是最常用的
+但是缺点是要调用两次父类的构造函数
+
+``` js
+function SubType() {
+   SuperType.call(this);
+}
+
+SubType.prototype = new SuperType();
+SubType.prototype.constructor = SubType;
+```
+
+### 4 原型式继承
+就是 `Object.create(instance)`
+
+``` js
+function myCreate(instance) {
+   function F() {}
+   F.prototype = instance;
+   return new F();
+}
+```
+
+### 5 寄生式继承
+类似寄生构造函数模式, 但是没用 new  
+创建一个仅用于封装继承过程的函数, 函数内部用某种方式增强对象, 最后再像真的是它做了所有工作一样返回对象
+
+``` js
+function constructor(instance) {
+   const clone = Object.create(instance);
+   clone.sayHi = function() {};
+   return clone;
+}
+```
+
+### 6 寄生组合式继承
+
+``` js
+function SubType() {
+   SuperType.call(this)
+}
+
+SubType.prototype = Object.create(SuperType.prototype);
+SubType.prototype.constructor = SubType;
+```
