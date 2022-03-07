@@ -12,6 +12,7 @@
     "pack06": "webpack --config ./src/06_loader-and-assets/webpack.config.js --progress",
     "pack07": "cross-env NODE_ENV=production webpack --config ./src/07_vue/webpack.prod.js --progress",
     "pack08": "cross-env NODE_ENV=production webpack --config ./src/08_official-course/webpack.config.js",
+    "pack09": "cross-env webpack --config ./src/09_migration/webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./src/07_vue/webpack.dev.js --stats-error-details",
     "dev08": "webpack serve --config ./src/08_official-course/webpack.config.js",
     "serve08": "node ./src/08_official-course/server.js"
@@ -20,7 +21,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/parser": "^7.17.3",
+    "@babel/traverse": "^7.17.3",
     "echarts": "^5.2.2",
+    "js-code-structure": "^0.1.11",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "vue": "^2.6.14",
@@ -31,6 +35,7 @@
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "babel-loader": "^8.2.3",
+    "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.0",
     "ejs-loader": "^0.5.0",
