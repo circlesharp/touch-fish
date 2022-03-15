@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      input[type='radio'] {
+        display: none;
+      }
+
+      label {
+        display: block;
+        padding: 18px;
+      }
+
+      label p {
+        font-size: 12px;
+        padding: 0;
+        margin: 0;
+        color: grey;
+      }
+
+      label p:nth-child(1) {
+        font-weight: bold;
+        color: black;
+        margin-bottom: 10px;
+      }
+
+      .radio-item {
+        display: inline-block;
+        position: relative;
+        border: 1px solid gray;
+        border-radius: 3px;
+      }
+
+      .radio-item.checked {
+        border: 1px solid blue;
+      }
+
+      .radio-item.checked::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: 10px solid;
+        border-color: blue blue transparent transparent;
+      }
+      .radio-item.checked::after {
+        content: '+';
+        position: absolute;
+        top: -5px;
+        right: 0;
+        color: white;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/test">
+      <div class="radio-item checked">
+        <input type="radio" id="huey" name="drone" value="huey" />
+        <label for="huey">
+          <p>huey</p>
+          <p>向客户侧推送一条人工生成</p>
+        </label>
+      </div>
+
+      <div class="radio-item">
+        <input type="radio" id="dewey" name="drone" value="dewey" />
+        <label for="dewey">
+          <p>huey</p>
+          <p>向客户侧推送一条人工生成</p>
+        </label>
+      </div>
+
+      <div class="radio-item">
+        <input type="radio" id="louie" name="drone" value="louie" />
+        <label for="louie">
+          <p>huey</p>
+          <p>向客户侧推送一条人工生成</p>
+        </label>
+      </div>
+
+      <input type="submit" />
+    </form>
+  </body>
+</html>
