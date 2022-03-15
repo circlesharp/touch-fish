@@ -10,6 +10,22 @@
   </head>
   <body>
     <h1>Demo of ProductItem</h1>
-    <product-item></product-item>
+    <div id="products">
+      <product-item
+        data-operations='["add", "delete", "edit"]'
+        data-product='{"id":752081574301,"name":"dr","price":"1","description":"2"}'
+      ></product-item>
+    </div>
+    <script>
+      const productsEle = document.querySelector('#products');
+      productsEle.addEventListener('click', (event) => {
+        const [target] = event.composedPath();
+        if (target.dataset.type !== 'operation') {
+          return;
+        }
+
+        console.log(target.dataset.operation);
+      });
+    </script>
   </body>
 </html>

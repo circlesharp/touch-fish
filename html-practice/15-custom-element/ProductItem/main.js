@@ -24,14 +24,9 @@ class ProductItem extends HTMLElement {
     this.shadow.appendChild(this.wrapper);
   }
 
-  setProductInfo(
-    productInfo = {
-      name: 'name',
-      price: 'price',
-      desc: 'description',
-    }
-  ) {
-    const { name, price, desc } = productInfo;
+  setProductInfo() {
+    const product = JSON.parse(this.dataset.product);
+    const { name, price, description } = product;
 
     const productInfoEle = document.createElement('div');
     productInfoEle.setAttribute('class', 'product-info');
@@ -41,10 +36,10 @@ class ProductItem extends HTMLElement {
     nameEle.innerText = name;
     const priceEle = document.createElement('div');
     priceEle.setAttribute('class', 'price');
-    priceEle.innerText = price;
+    priceEle.innerText = `$ ${price}`;
     const descEle = document.createElement('div');
     descEle.setAttribute('class', 'desc');
-    descEle.innerText = desc;
+    descEle.innerText = description;
 
     productInfoEle.appendChild(nameEle);
     productInfoEle.appendChild(priceEle);
@@ -53,13 +48,17 @@ class ProductItem extends HTMLElement {
     this.wrapper.appendChild(productInfoEle);
   }
 
-  setOperation(operations = ['add', 'delete']) {
+  setOperation() {
+    const operations = JSON.parse(this.dataset.operations);
+
     const operationEle = document.createElement('div');
     operationEle.setAttribute('class', 'operation');
 
     for (const operation of operations) {
       const btnEle = document.createElement('button');
       btnEle.innerText = operation;
+      btnEle.dataset.type = 'operation';
+      btnEle.dataset.operation = operation;
       operationEle.appendChild(btnEle);
     }
 
