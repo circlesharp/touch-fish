@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>test</button>
+    <script>
+      function fillForm() {
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', () => {
+          console.log('Hello World');
+        });
+
+        const selfEvent = new Event('click');
+        btn.dispatchEvent(selfEvent);
+      }
+    </script>
+    <script>
+      Reflect.defineProperty(window, 'fff', {
+        get() {
+          fillForm();
+          return 1;
+        },
+      });
+    </script>
+  </body>
+</html>
