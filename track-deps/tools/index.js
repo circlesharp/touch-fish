@@ -1,27 +1,7 @@
-const chalk = require('chalk');
+const { logPluginEvent } = require('./log-plugin-event');
+const { migration } = require('./migration');
 
 module.exports = {
-  logPluginEvent: function (
-    eventName,
-    pluginName = 'default',
-    backgroundColor = 'bgCyan',
-    textColor = 'white',
-    titleColor = 'black'
-  ) {
-    console.log(
-      chalk[titleColor](
-        chalk[backgroundColor](
-          `
-                                                                            
-                        ${chalk.bold(
-                          chalk[textColor]('WEBPACK PLUGIN EVENT')
-                        )}                                
-                                                                            
-                        PLUGIN:     ${pluginName}                             
-                        EVENT NAME: ${eventName}                          
-                                                                            \n`
-        )
-      )
-    );
-  },
+  logPluginEvent,
+  migration,
 };

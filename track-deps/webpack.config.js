@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const { TemplatePlugin } = require('./plugins/TemplatePlugin');
+const { MyPlugin } = require('./plugins/MyPlugin');
 
 module.exports = {
   entry: './src',
@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].chunk.js',
   },
-  plugins: [new TemplatePlugin('src')],
+  plugins: [new MyPlugin('src')],
   optimization: {
     // 默认 true, 告知 webpack 去确定那些由模块提供的导出内容
     // 设置为 false 之后会导致取不到 _lastSuccessfulBuildMeta

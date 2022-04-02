@@ -10,7 +10,7 @@
     "providedExports": ["unused2", "default"]
   },
   {
-    "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\node_modules\\css-loader\\dist\\cjs.js!C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\style\\style.css",
+    "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\style\\style.css",
     "usedExports": false,
     "providedExports": ["default"]
   },
