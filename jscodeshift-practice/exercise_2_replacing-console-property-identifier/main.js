@@ -7,6 +7,10 @@ const paths = ['../src/source.ts'];
 const options = {
   dry: true,
   print: true,
+  replaceRules: {
+    warn: 'fuck',
+    error: 'damn',
+  },
 };
 
 jscodeshift(transformPath, paths, options);
