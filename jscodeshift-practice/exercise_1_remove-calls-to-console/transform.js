@@ -9,6 +9,9 @@ module.exports.default = function (fileInfo, api) {
       object: {
         name: 'console',
       },
+      property: {
+        name: 'log',
+      },
     },
   });
 
