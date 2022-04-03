@@ -9,6 +9,7 @@ const options = {
   print: true,
   verbose: 1,
   parser: 'ts',
+  usedExports: ['sum', 'average', 'People'],
 };
 
 jscodeshift(transformPath, paths, options);
