@@ -16,6 +16,8 @@ module.exports = {
     // 告知 webpack 去决定每个模块使用的导出内容
     // 设置为 false 之后会导致取不到 usedExports
     usedExports: true,
+
+    minimize: false,
   },
   module: {
     rules: [

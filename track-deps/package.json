@@ -8,16 +8,21 @@
     "build": "webpack",
     "step1": "yarn build",
     "step2": "node ./lib/step-2.js",
-    "step3": "node ./lib/step-3.js"
+    "step3": "node ./lib/step-3.js",
+    "lib": "webpack --config ./webpack.lib.js --progress"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
+    "babel-loader": "^8.2.4",
     "chalk": "4.1.2",
     "css-loader": "^4.0.0",
     "jscodeshift": "^0.13.1"
