@@ -1,16 +1,15 @@
 const fs = require('fs');
 const path = require('path');
-const { logPluginEvent } = require('../tools/index');
+const chalk = require('chalk');
+const { srcDirKeyword } = require('../configuration.js');
 
-class MyPlugin {
+class DepGraphPlugin {
   constructor(path) {
-    this.path = path;
+    this.path = path ?? srcDirKeyword;
   }
 
   apply(compiler) {
     compiler.hooks.done.tap('MyPlugin', (stats) => {
-      logPluginEvent('done');
-
       const files = [];
       for (let depPath of stats.compilation.fileDependencies) {
         if (depPath.includes(this.path)) {
@@ -34,10 +33,10 @@ class MyPlugin {
         deps.push(moduleInfo);
       }
 
-      MyPlugin.ToExactFileNames(deps, files);
+      DepGraphPlugin.ToExactFileNames(deps, files);
 
       fs.writeFileSync(
-        path.resolve(__dirname, 'deps.json'),
+        path.resolve(__dirname, '../deps.json'),
         JSON.stringify(deps)
       );
     });
@@ -46,11 +45,14 @@ class MyPlugin {
   static ToExactFileNames(deps, files) {
     for (const exactFileName of files) {
       const idx = deps.findIndex((dep) => dep.path.includes(exactFileName));
-      if (idx === -1) throw Error('ToExactFileNames Error!');
+      if (idx === -1) {
+        console.log(chalk.bgRed('Sorry:', chalk.bold.black(exactFileName)));
+        continue;
+      }
 
       deps[idx].path = exactFileName;
     }
   }
 }
 
-module.exports = { MyPlugin };
+module.exports = { DepGraphPlugin };

@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 
-function migration(srcPaths, [originDirName, targetDirName]) {
+function migration(srcPaths, [srcDirKeyword, desDirKeyword]) {
   for (const filePath of srcPaths) {
-    const targetPath = filePath.replace(originDirName, targetDirName);
+    const targetPath = filePath.replace(srcDirKeyword, desDirKeyword);
     copyFile(filePath, targetPath);
   }
 }

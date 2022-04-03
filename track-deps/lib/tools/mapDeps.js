@@ -1,9 +1,9 @@
-function mapDeps(deps, [originDirName, migratedDirName]) {
+function mapDeps(deps, [srcDirKeyword, desDirKeyword]) {
   return deps
     .filter((dep) => dep.path.endsWith('.js'))
     .map((dep) => ({
       originPath: dep.path,
-      migratedPath: dep.path.replace(originDirName, migratedDirName),
+      migratedPath: dep.path.replace(srcDirKeyword, desDirKeyword),
       usedExports: uniUsedExports(dep.usedExports),
     }));
 }

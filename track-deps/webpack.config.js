@@ -1,5 +1,5 @@
 const path = require('path');
-const { MyPlugin } = require('./lib/plugins/MyPlugin');
+const { DepGraphPlugin } = require('./lib/steps/depGraphPlugin');
 
 module.exports = {
   entry: './src',
@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].chunk.js',
   },
-  plugins: [new MyPlugin('src')],
+  plugins: [new DepGraphPlugin()],
   optimization: {
     // 默认 true, 告知 webpack 去确定那些由模块提供的导出内容
     // 设置为 false 之后会导致取不到 _lastSuccessfulBuildMeta
