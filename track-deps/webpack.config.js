@@ -1,7 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
-
-const { MyPlugin } = require('./plugins/MyPlugin');
+const { MyPlugin } = require('./lib/plugins/MyPlugin');
 
 module.exports = {
   entry: './src',

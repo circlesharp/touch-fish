@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "step1": "yarn build",
+    "step2": "node ./lib/step-2.js",
+    "step3": "node ./lib/step-3.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +19,7 @@
   },
   "dependencies": {
     "chalk": "^1.1.3",
-    "css-loader": "^4.0.0"
+    "css-loader": "^4.0.0",
+    "jscodeshift": "^0.13.1"
   }
 }
