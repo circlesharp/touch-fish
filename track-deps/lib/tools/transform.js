@@ -1,6 +1,9 @@
 module.exports = function (fileInfo, api, { depsInfo }) {
   const j = api.jscodeshift;
   const root = j(fileInfo.source);
+  const usedExports = depsInfo.find(
+    (info) => info.migratedPath === fileInfo.path
+  ).usedExports;
 
   //----------------------------------------------
   // 分离及删除所有 ExploreNamedDeclaration
@@ -21,32 +24,47 @@ module.exports = function (fileInfo, api, { depsInfo }) {
   });
 
   //----------------------------------------------
-  // 新建全文唯一的 export 语句
+  // 新建并写入全文唯一的 export 语句
   //----------------------------------------------
-  const usedExports = depsInfo.find(
-    (info) => info.migratedPath === fileInfo.path
-  ).usedExports;
-  if (usedExports.length === 0) return root.toSource();
+  if (usedExports.length !== 0) {
+    const uniExportNode = j.exportNamedDeclaration(
+      null,
+      usedExports.map((name) =>
+        j.exportSpecifier.from({
+          exported: j.identifier(name),
+          local: j.identifier(name),
+        })
+      )
+    );
 
-  const uniExportNode = j.exportNamedDeclaration(
-    null,
-    usedExports.map((name) =>
-      j.exportSpecifier.from({
-        exported: j.identifier(name),
-        local: j.identifier(name),
-      })
-    )
-  );
-
-  //----------------------------------------------
-  // 写入 export 语句
-  //----------------------------------------------
-  const exportDefaultDeclaration = root.find(j.ExportDefaultDeclaration);
-  if (exportDefaultDeclaration.paths().length > 0) {
-    exportDefaultDeclaration.insertBefore(uniExportNode);
-  } else {
-    root.get(0).node.program.body.push(uniExportNode);
+    const exportDefaultDeclaration = root.find(j.ExportDefaultDeclaration);
+    if (exportDefaultDeclaration.paths().length > 0) {
+      exportDefaultDeclaration.insertBefore(uniExportNode);
+    } else {
+      root.get(0).node.program.body.push(uniExportNode);
+    }
   }
+
+  //-----------------------
+  // 拆分多声明语句
+  //-----------------------
+  const variableDeclarations = root.find(j.VariableDeclaration, {});
+  variableDeclarations.replaceWith((nodePath) => {
+    const { node: nodeVariableDeclaration, parent } = nodePath;
+
+    // 如果是 `export const xxx, xxx`, 暂时不操作
+    if (parent.node.type === 'ExportNamedDeclaration')
+      return nodeVariableDeclaration;
+
+    const { declarations: nodeVariableDeclaratorArr, kind } =
+      nodeVariableDeclaration;
+
+    const nodes = nodeVariableDeclaratorArr.map((variableDeclarator) =>
+      j.variableDeclaration(kind, [variableDeclarator])
+    );
+
+    return nodes;
+  });
 
   return root.toSource();
 };
