@@ -2,7 +2,7 @@ const path = require('path');
 const { DepGraphPlugin } = require('./lib/steps/depGraphPlugin');
 
 module.exports = {
-  entry: './src',
+  entry: ['./src/index.js', './src/main.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].chunk.js',
