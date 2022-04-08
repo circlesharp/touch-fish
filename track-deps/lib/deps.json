@@ -1,9 +1,8 @@
 [
-  { "path": "multi ./src/index.js ./src/main.js", "usedExports": true },
   {
     "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\index.js",
     "usedExports": true,
-    "providedExports": []
+    "providedExports": true
   },
   {
     "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\main.js",
@@ -12,8 +11,8 @@
   },
   {
     "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\components\\a.js",
-    "usedExports": ["default", "aaa", "bbb"],
-    "providedExports": ["aaa", "bbb", "ccc", "unused2", "default"]
+    "usedExports": true,
+    "providedExports": true
   },
   {
     "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\components\\d.js",
@@ -22,12 +21,12 @@
   },
   {
     "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\style\\style.css",
-    "usedExports": false,
+    "usedExports": true,
     "providedExports": ["default"]
   },
   {
     "path": "C:\\Users\\circl\\repo\\touch-fish\\track-deps\\src\\components\\b.js",
-    "usedExports": ["default"],
-    "providedExports": ["aaa", "bbb", "ccc", "ddd", "default"]
+    "usedExports": true,
+    "providedExports": true
   }
 ]
