@@ -30,6 +30,9 @@ module.exports = {
 
     // 为直观看到打包产物, 不 minimize
     minimize: false,
+
+    // 是否拼接多个模块于一个闭包中
+    concatenateModules: false,
   },
   module: {
     rules: [
@@ -42,9 +45,22 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /(node_modules)/,
         options: {
-          presets: ['@babel/preset-env'],
+          // presets: ['@babel/preset-env', { debug: true }],
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                // 此处的 modules 的设置也会影响 babel 对模块化的介入 (p.s. 注意 presets 数组嵌套数组的格式)
+                modules: false,
 
-          // 旧的写法是 modules: 'mjs'
+                // debug 会显示 presets 的 options, plugins
+                debug: false,
+                targets: 'defaults',
+              },
+            ],
+          ],
+
+          // 旧的写法是 modules: 'cjs'
           // 这个让 babel 对 es-module 编译成 commonjs, 导致 tree-shaking 失败
           // plugins: ['@babel/plugin-transform-modules-commonjs'],
         },
