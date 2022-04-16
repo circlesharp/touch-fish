@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "axios": "^0.25.0",
+    "unplugin-auto-import": "^0.7.1",
     "vite": "^2.7.13",
+    "vite-plugin-resolve-extension-vue": "^0.1.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"

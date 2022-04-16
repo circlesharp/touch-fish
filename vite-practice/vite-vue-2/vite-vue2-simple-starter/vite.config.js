@@ -1,6 +1,7 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 import { createVuePlugin } from 'vite-plugin-vue2';
-import path from 'path';
+import resolveExtensionVue from 'vite-plugin-resolve-extension-vue';
 
 const HOST = '0.0.0.0';
 const REPLACEMENT = `${path.resolve(__dirname, './src')}/`;
@@ -24,6 +25,6 @@ export default (/** if you want to use mode : { mode }*/) => {
         },
       ],
     },
-    plugins: [createVuePlugin(/* options */)],
+    plugins: [createVuePlugin(/* options */), resolveExtensionVue()],
   });
 };
