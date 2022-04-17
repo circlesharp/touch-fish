@@ -9,7 +9,8 @@
     "step1": "yarn build",
     "step2": "node ./lib/steps/moveFiles.js",
     "step3": "node ./lib/steps/removeUnusedExport.js",
-    "lib": "webpack --config ./webpack.lib.js --progress"
+    "lib": "webpack --config ./webpack.lib.js --progress",
+    "rollup": "rollup -c ./rollup/rollup.config.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "clean-webpack-plugin": "^4.0.0",
+    "rollup": "^2.70.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },

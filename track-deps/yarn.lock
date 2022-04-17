@@ -3852,6 +3852,13 @@
     "hash-base" "^3.0.0"
     "inherits" "^2.0.1"
 
+"rollup@^2.70.2":
+  "integrity" "sha512-EitogNZnfku65I1DD5Mxe8JYRUCy0hkK5X84IlDtUs+O6JRMpRciXTzyCUuX11b5L5pvjH+OmFXiQ3XjabcXgg=="
+  "resolved" "https://registry.npmmirror.com/rollup/-/rollup-2.70.2.tgz"
+  "version" "2.70.2"
+  optionalDependencies:
+    "fsevents" "~2.3.2"
+
 "run-queue@^1.0.0", "run-queue@^1.0.3":
   "integrity" "sha512-ntymy489o0/QQplUDnpYAYUsO50K9SBrIVaKCWDOJzYJts0f9WH9RFJkyagebkw5+y1oi00R7ynNW/d12GBumg=="
   "resolved" "https://registry.npmmirror.com/run-queue/-/run-queue-1.0.3.tgz"
