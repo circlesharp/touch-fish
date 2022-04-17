@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { createVuePlugin } from 'vite-plugin-vue2';
+import gatherRemovedExportsPlugin from './rollupPlugin';
 
 const HOST = '0.0.0.0';
 
@@ -11,6 +12,6 @@ export default (/** if you want to use mode : { mode }*/) => {
       host: HOST,
       port: process.env.PORT,
     },
-    plugins: [createVuePlugin(/* options */)],
+    plugins: [createVuePlugin(), gatherRemovedExportsPlugin()],
   });
 };
