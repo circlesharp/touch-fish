@@ -1,4 +1,5 @@
 import path from 'path';
+import { gatherRemovedExportsPlugin } from './track-deps/gatherRemovedExportsPlugin';
 
 export default {
   root: path.resolve(process.cwd(), './src'),
@@ -12,4 +13,5 @@ export default {
       '@images': '/assets/images',
     },
   },
+  plugins: [gatherRemovedExportsPlugin()],
 };
