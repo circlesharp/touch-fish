@@ -1,0 +1,22 @@
+{
+  "name": "evan-you-vite",
+  "version": "1.0.0",
+  "description": "Evan You's Vite Talking",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.9.5"
+  },
+  "dependencies": {
+    "less": "^4.1.2",
+    "sass": "^1.50.1"
+  }
+}

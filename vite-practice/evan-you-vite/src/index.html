@@ -1,0 +1,33 @@
+<h1 class="text-3xl">Hello Vite</h1>
+<h2>Sass</h2>
+<h3>Less</h3>
+<p>css module</p>
+<div class="flex">
+  <img id="cover" alt="cover" />
+  <div class="bg-suzuha">suzuha background</div>
+</div>
+
+<script type="module">
+  import '@script/main.js';
+
+  // ----------------
+  // css 导入, 支持别名
+  // ----------------
+  import '@style/style.css';
+  import '@style/style.sass';
+  import '@style/style.less';
+
+  // ----------------
+  // css module 原理
+  // ----------------
+  import classes from '@style/style.module.css';
+  console.log(classes); // {text: '_text_yp4me_1'}
+  document.querySelector('p').className = classes.text;
+
+  // ----------------
+  // 支持图片导入
+  // ----------------
+  import suzuhaPath from '@images/Suzuha.jpeg';
+  const coverImgEle = document.querySelector('#cover');
+  coverImgEle?.setAttribute('src', suzuhaPath);
+</script>
