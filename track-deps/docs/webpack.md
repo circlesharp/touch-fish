@@ -52,4 +52,57 @@ hook.call('hello', 'world');
 是 webpack 插件机制的心脏
 
 ## 2 一切皆插件: ppt & source code
+webpack 关键的 tapalbe 实例
+其中的 compiler 是最主要的, 插件就是对 compiler 对象的一系列操作
+1. compiler aka 老大
+2. compilation aka 依赖图
+3. resolver aka 老马
+4. moduleFactories 生成模块对象
+5. parser 生成AST
+6. template 渲染
+
+### compiler
+file: Compiler, lib\Compiler.js
+
+compiler 上面的钩子
+![compiler hooks](webpack_files/3.jpg)
+![hook.done tap](webpack_files/8.jpg)
+![hook.done call](webpack_files/4.jpg)
+
+
+compiler 上面有其他重要的 tapable 实例
+``` js
+// ResolverFactory line 146
+this.resolverFactory = new ResolverFactory();
+
+// NormalModuleFactory line 636~641
+const normalModuleFactory = new NormalModuleFactory(/*xxx*/);
+this.hooks.normalModuleFactory.call(normalModuleFactory);
+```
+
+### compilation
+> 待 part 3 依赖图 & ESM 详解
+file: Compilation, lib\Compilation.js
+
+### resolver
+file: ResolverFactory, lib\ResolverFactory.js
+
+### moduleFactories
+file: NormalModuleFactory, ContextModuleFactory, DllModuleFactory, MultiModuleFactory
+
+![moduleFactory & parser](webpack_files/5.jpg)
+![compiler.compilation vs compilation](webpack_files/7.jpg)
+![compilation 是 compiler.compilation.call()/tap() 的参数](webpack_files/6.jpg)
+
+### parser
+file: Parser && JavascriptModulesPlugin
+
+### template
+file: ModuleTemplate, lib\ModuleTemplate.js
+
 ## 3 依赖图 & ESM
+1. compilation 对象就是依赖图
+2. buildMeta.providedExports: FlagDependencyExportsPlugin
+3. buildMeta.usedExports: FlagDependencyUsagePlugin
+
+// todo
