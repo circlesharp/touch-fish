@@ -1,0 +1,11 @@
+{
+  "version": "v1",
+  "packages": {
+    "webpack": {
+      "version": "4.41.5",
+      "signature": "5c5801b0356efc41886794ca4afcaed8",
+      "file": true,
+      "replaced": "^4.41.5"
+    }
+  }
+}
