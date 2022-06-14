@@ -100,9 +100,52 @@ file: Parser && JavascriptModulesPlugin
 ### template
 file: ModuleTemplate, lib\ModuleTemplate.js
 
-## 3 依赖图 & ESM
+## 3 依赖图
 1. compilation 对象就是依赖图
 2. buildMeta.providedExports: FlagDependencyExportsPlugin
-3. buildMeta.usedExports: FlagDependencyUsagePlugin
+3. usedExports: FlagDependencyUsagePlugin
+4. 时机: compiler.hooks.done
 
-// todo
+![config providedExports](webpack_files/10.jpg)
+![config usedExports](webpack_files/11.jpg)
+![config use plugin](webpack_files/9.jpg)
+
+### compilation 对象就是依赖图
+![compilation.modules](webpack_files/16.jpg)
+![a single module](webpack_files/17.jpg)
+
+
+### FlagDependencyExportsPlugin & FlagDependencyUsagePlugin
+
+lib\FlagDependencyUsagePlugin.js
+``` js
+// line91 当前的模块C用到模块R的导出, 就把这个 importedNames 记录在模块R的 usedExports 之中
+processModule(referenceModule, importedNames);
+
+// line38 processModule
+module.usedExports = addToSet(module.usedExports || [], usedExports);
+```
+
+
+lib\FlagDependencyExportsPlugin.js
+``` js
+// line49 processDependency (准确来说, 应该叫 processExports)
+const exportDesc = dep.getExports && dep.getExports();
+const exports = exportDesc.exports;
+addToSet(moduleProvidedExports, exports)
+
+// line122 主程序
+module.buildMeta.providedExports = Array.from(moduleProvidedExports);
+```
+
+### compiler.hooks.done
+
+官网文档说明
+![docs compiler.done](webpack_files/12.jpg)
+
+源码中一处被调用的地方
+![src call](webpack_files/13.jpg)
+
+sync => async
+![toAsync 1](webpack_files/14.jpg)
+![toAsync 2](webpack_files/15.jpg)
