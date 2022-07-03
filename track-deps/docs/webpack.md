@@ -149,3 +149,13 @@ module.buildMeta.providedExports = Array.from(moduleProvidedExports);
 sync => async
 ![toAsync 1](webpack_files/14.jpg)
 ![toAsync 2](webpack_files/15.jpg)
+
+## Tree Shaking
+### webpack 怎么去掉无用依赖的, 即 webpack 怎么实现 tree-shaking
+1. 依赖图的建立已经剔除了未使用的文件
+2. 识别到 usedExports 就可以剔除未使用的导出
+
+### webpack 无法 tree-shaking 的原因
+1. 表层原因: usedExports & providedExports 无法正常生成
+2. 根因: [tree-shaking-like-a-pro](https://bluepnume.medium.com/javascript-tree-shaking-like-a-pro-7bf96e139eb7#43e1)
+
