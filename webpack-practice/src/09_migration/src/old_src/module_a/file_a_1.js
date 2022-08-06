@@ -2,6 +2,8 @@ export function mainA1() {
   return a() + c();
 }
 
+export function noUseFun() {}
+
 function a() {
   return 1;
 }

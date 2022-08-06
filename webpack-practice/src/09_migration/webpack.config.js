@@ -5,13 +5,16 @@ const { FileListPlugin } = require('./plugin');
 
 module.exports = {
   // mode: 'production',
-  mode: 'development',
+  mode: 'production',
   entry: path.resolve(__dirname, './src/app.js'),
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'app.bundle.js',
   },
   devtool: 'source-map',
-  // exclude: [path.resolve(__dirname, './src/old_src')],
   plugins: [new FileListPlugin()],
+  optimization: {
+    providedExports: true,
+    usedExports: true,
+  },
 };
