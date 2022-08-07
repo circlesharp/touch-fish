@@ -1,10 +1,13 @@
+const path = require('path');
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseConfig = require('./webpack.base');
+const { TrackDepsPlugin } = require('./trackDepsTempDir/TrackDepsPlugin');
 
 module.exports = merge(baseConfig, {
   mode: 'production',
   output: {
+    path: path.resolve(__dirname, './dist'),
     filename: '[name].[chunkhash:4].js',
   },
   optimization: {
@@ -16,6 +19,10 @@ module.exports = merge(baseConfig, {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'assets/styles/[name].[chunkhash:4].css',
+    }),
+    new TrackDepsPlugin({
+      targetDir: './src/07_vue/src',
+      outputDir: './src/07_vue/dist',
     }),
   ],
   module: {

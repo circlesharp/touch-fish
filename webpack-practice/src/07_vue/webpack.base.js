@@ -8,7 +8,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const baseConfig = {
   target: 'web',
   mode: 'development',
-  entry: path.resolve(__dirname, './index.js'),
+  entry: path.resolve(__dirname, './src/index.js'),
   output: {
     path: path.resolve(__dirname, '../../dist/build07'),
     filename: '[name].bundle.js',
