@@ -12,6 +12,9 @@
     "lib": "webpack --config ./webpack.lib.js --progress",
     "rollup": "rollup -c ./rollup/rollup.config.js"
   },
+  "bin": {
+    "trackdeps": "./bin/trackdeps.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

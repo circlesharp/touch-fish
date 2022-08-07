@@ -1,6 +1,6 @@
 const path = require('path');
 // const webpack = require('webpack');
-const { TrackDepsPlugin } = require('./plugin');
+const { TrackDepsPlugin } = require('./trackDepsTempDir/TrackDepsPlugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -14,7 +14,8 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new TrackDepsPlugin({
-      outputPath: './src/09_migration/dist',
+      targetDir: './src/09_migration/src',
+      outputDir: './src/09_migration/dist',
     }),
   ],
   optimization: {
