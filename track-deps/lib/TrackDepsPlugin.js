@@ -95,7 +95,9 @@ class TrackDepsPlugin {
   getUnusedFiles() {
     const allFiles = walk(this.targetDir);
     const usedFilesOfWebpack = this.exportsInfo.map((i) => i.path);
-    const unusedFiles = allFiles.filter((i) => !usedFilesOfWebpack.includes(i));
+    const unusedFiles = allFiles.filter(
+      (i) => !usedFilesOfWebpack.some((k) => k.includes(i))
+    );
     const extraPathsOfWebpack = usedFilesOfWebpack.filter(
       (i) => !allFiles.includes(i)
     );
