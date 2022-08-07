@@ -11,6 +11,7 @@ class DepGraphPlugin {
   apply(compiler) {
     compiler.hooks.done.tap('MyPlugin', (stats) => {
       const files = [];
+      debugger;
       for (let depPath of stats.compilation.fileDependencies) {
         if (depPath.includes(this.path)) {
           files.push(depPath);

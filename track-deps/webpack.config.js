@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { DepGraphPlugin } = require('./lib/steps/depGraphPlugin');
+const { TrackDepsPlugin } = require('./lib/TrackDepsPlugin');
 
 module.exports = {
   mode: 'production',
@@ -17,7 +17,9 @@ module.exports = {
     new CleanWebpackPlugin(),
 
     // 我的插件
-    new DepGraphPlugin(),
+    new TrackDepsPlugin({
+      targetDir: './src/components',
+    }),
   ],
   optimization: {
     // 默认 true, 告知 webpack 去确定那些由模块提供的导出内容

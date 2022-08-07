@@ -1,6 +1,6 @@
 const path = require('path');
 // const webpack = require('webpack');
-const { FileListPlugin } = require('./plugin');
+const { TrackDepsPlugin } = require('./plugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -12,7 +12,11 @@ module.exports = {
     filename: 'app.bundle.js',
   },
   devtool: 'source-map',
-  plugins: [new FileListPlugin()],
+  plugins: [
+    new TrackDepsPlugin({
+      outputPath: './src/09_migration/dist',
+    }),
+  ],
   optimization: {
     providedExports: true,
     usedExports: true,
