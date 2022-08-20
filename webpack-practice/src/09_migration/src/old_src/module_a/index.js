@@ -8,3 +8,5 @@ export function moduleA(a, b) {
 export function noUseModuleA() {
   return 'No Use';
 }
+
+export default noUseModuleA;

@@ -4,11 +4,14 @@ const { TrackDepsPlugin } = require('./trackDepsTempDir/TrackDepsPlugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: path.resolve(__dirname, './src/app.js'),
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'app.bundle.js',
+  },
+  stats: {
+    logging: 'verbose',
   },
   devtool: 'source-map',
   plugins: [
@@ -20,5 +23,6 @@ module.exports = {
   optimization: {
     providedExports: true,
     usedExports: true,
+    minimize: false,
   },
 };

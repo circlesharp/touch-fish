@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "webpack": {
+      "signature": "aa5bd00aa1db7826e6f2c9bc2cd17621",
+      "file": true,
+      "replaced": "^5.61.0"
+    }
+  }
+}

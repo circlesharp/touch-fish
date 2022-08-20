@@ -49,19 +49,17 @@ class TrackDepsPlugin {
 
   // webpack 5 的方法
   cbV5(stats) {
-    const getExportsInfo = stats.compilation.moduleGraph.getExportsInfo.bind(
-      stats.compilation.moduleGraph
-    );
+    const moduleGraph = stats.compilation.moduleGraph;
     for (const module of stats.compilation.modules) {
       const path = unitPathSep(module.resource);
       if (!path.includes(this.targetDir)) continue;
 
       const moduleType = module.constructor.name;
-      const exportsInfo = getExportsInfo(module);
-      const providedExports = Array.from(exportsInfo?.exports).map(
-        (exp) => exp.name
-      );
-      const usedExports = Array.from(exportsInfo.getUsedExports());
+
+      const providedExports = moduleGraph.getProvidedExports(module);
+
+      const usedExports = Array.from(moduleGraph.getUsedExports(module));
+
       this.exportsInfo.push({ moduleType, path, providedExports, usedExports });
     }
   }

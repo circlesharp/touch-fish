@@ -52,6 +52,7 @@ hook.call('hello', 'world');
 是 webpack 插件机制的心脏
 
 ## 2 一切皆插件: ppt & source code
+> v4.41.5 && v5.74.0
 webpack 关键的 tapalbe 实例
 其中的 compiler 是最主要的, 插件就是对 compiler 对象的一系列操作
 1. compiler aka 老大
@@ -149,6 +150,27 @@ module.buildMeta.providedExports = Array.from(moduleProvidedExports);
 sync => async
 ![toAsync 1](webpack_files/14.jpg)
 ![toAsync 2](webpack_files/15.jpg)
+
+## 3 依赖图(webpack5)
+1. compilation 对象就是依赖图
+2. compilation.moduleGraph.getExportsInfo(module) => exportsInfo
+
+### 术语
+ModuleGraphModule: ModuleGraph.prototype._moduleMap 的成员
+ModuleGraphConnection: ModuleGraph.prototype._dependencyMap 的成员
+ExportsInfo: getProvidedExports, getUsedExports
+runtime??
+HarmonyExportInitFragment: 模板生成的地方
+getUsedName 若为 false, 则不写入 `__webpack_require__.d`
+
+### FlagDependencyUsagePlugin
+1. processEntryDependency => processReferencedModule
+2. processModule
+3. setUsed 设置了 _globalUsed, _usedInRuntime
+4. ModuleGraph.prototype.getUsedExports 有真正的含义
+5. 通过 ModuleGraph.prototype.getUsedExports/getProvidedExports 能够满足需求, 等价于 ExportsInfo.prototype.getUsedExports/getProvidedExports
+6. getUsedExports 是通过 exportInfo.getUsed 与 UsageState 枚举判断而得的
+7. getUsed 的值是由 setUsed 来设置的, setUsed 由 setUsedWithoutInfo, setUsedWithoutInfo, setAllKnownExportsUsed 调用, 这些函数在 FlagDependencyUsagePlugin.js 中被调用
 
 ## Tree Shaking
 ### webpack 怎么去掉无用依赖的, 即 webpack 怎么实现 tree-shaking
