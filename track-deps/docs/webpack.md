@@ -162,6 +162,10 @@ ExportsInfo: getProvidedExports, getUsedExports
 runtime??
 HarmonyExportInitFragment: 模板生成的地方
 getUsedName 若为 false, 则不写入 `__webpack_require__.d`
+block 的概念要理清
+HarmonyImportSpecifierDependency 就是 `import { xxx } from './xxx.js';`
+HarmonyExportSpecifierDependency 就是 `export const xx = abc`
+![HarmonyExportSpecifierDependency.prototype.getExports()](webpack_files/18.jpg)
 
 ### FlagDependencyUsagePlugin
 1. processEntryDependency => processReferencedModule
@@ -171,6 +175,14 @@ getUsedName 若为 false, 则不写入 `__webpack_require__.d`
 5. 通过 ModuleGraph.prototype.getUsedExports/getProvidedExports 能够满足需求, 等价于 ExportsInfo.prototype.getUsedExports/getProvidedExports
 6. getUsedExports 是通过 exportInfo.getUsed 与 UsageState 枚举判断而得的
 7. getUsed 的值是由 setUsed 来设置的, setUsed 由 setUsedWithoutInfo, setUsedWithoutInfo, setAllKnownExportsUsed 调用, 这些函数在 FlagDependencyUsagePlugin.js 中被调用
+
+### FlagDependencyExportsPlugin
+1. 多种类型的依赖有对应的 getExports 方法, 但这个方法只返回了一个带 exported names(key 为 exports) 的结构 (exportDesc)
+2. getProvidedExports 获取 _exports 的项 (exportInfo) 的 name
+3. FlagDependencyExportsPlugin 调用了 ExportsInfo.prototype.restoreProvided
+4. restoreProvided 调用了 this.getExportInfo (实际上没有会先set), 这样 this._exports 就收集了 providedExports
+
+
 
 ## Tree Shaking
 ### webpack 怎么去掉无用依赖的, 即 webpack 怎么实现 tree-shaking
