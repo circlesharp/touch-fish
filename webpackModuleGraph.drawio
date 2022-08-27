@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-08-27T11:30:31.968Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="pngZXP0Pd0CNXHGhM0XX" version="20.2.7" type="github">
+<mxfile host="app.diagrams.net" modified="2022-08-27T11:37:45.702Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="PXR5CQVPqQBIMc-Hw8Wa" version="20.2.7" type="github">
   <diagram id="Rsr1v_tStUaQ5azJq0qS" name="第 1 页">
     <mxGraphModel dx="981" dy="1717" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -126,16 +126,25 @@
           <mxGeometry y="86" width="730" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-63" value="AsyncQueue&lt;T, K, R&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
-          <mxGeometry x="920" y="-400" width="250" height="86" as="geometry" />
+          <mxGeometry x="920" y="-400" width="500" height="164" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-64" value="- _root: AsyncQueue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-63">
-          <mxGeometry y="26" width="250" height="26" as="geometry" />
+          <mxGeometry y="26" width="500" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-65" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-63">
-          <mxGeometry y="52" width="250" height="8" as="geometry" />
+          <mxGeometry y="52" width="500" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-66" value="+ add: (item: T, callback) =&gt; void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-63">
-          <mxGeometry y="60" width="250" height="26" as="geometry" />
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-66" value="+ add: (item: T, callback) =&gt; void // item 组装成 entry, 自动调用 _ensureProcessing" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-63">
+          <mxGeometry y="60" width="500" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-68" value="- _ensureProcessing: () =&gt; void //  控制并发数去处理 entry" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-63">
+          <mxGeometry y="86" width="500" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-69" value="- _startProcessing: (entry: AsyncQueueEntry) =&gt; void // 调用 _processor" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-63">
+          <mxGeometry y="112" width="500" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-70" value="- _processor: 实例化的时候传入的 processor" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-63">
+          <mxGeometry y="138" width="500" height="26" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
