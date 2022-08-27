@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2022-08-27T11:37:45.702Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="PXR5CQVPqQBIMc-Hw8Wa" version="20.2.7" type="github">
+<mxfile host="app.diagrams.net" modified="2022-08-27T11:46:31.163Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="Dtij9IGFW5kZoia_QQrC" version="20.2.7" type="github">
   <diagram id="Rsr1v_tStUaQ5azJq0qS" name="第 1 页">
     <mxGraphModel dx="981" dy="1717" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-1" value="ModuleGraph" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
-          <mxGeometry x="80" y="120" width="730" height="138" as="geometry">
+          <mxGeometry x="80" y="120" width="730" height="164" as="geometry">
             <mxRectangle x="290" y="200" width="100" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -23,6 +23,9 @@
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-17" value="+ getUsedExports: (module: Module, runtime: RuntimeSpec) =&gt; RetureType&lt;ExportsInfo[&#39;getUsedExports&#39;]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-1">
           <mxGeometry y="112" width="730" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-72" value="+ setResolvedModule: (originModule: Module, dependency: Dependency, module: Module) =&gt; void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-1">
+          <mxGeometry y="138" width="730" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-6" value="ModuleGraphModule" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
           <mxGeometry x="80" y="290" width="510" height="106" as="geometry" />
@@ -109,21 +112,21 @@
           <mxGeometry y="60" width="520" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-57" value="Compilation" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
-          <mxGeometry x="80" y="-400" width="730" height="112" as="geometry">
+          <mxGeometry x="80" y="-400" width="810" height="112" as="geometry">
             <mxRectangle x="290" y="200" width="100" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-58" value="addModuleQueue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-57">
-          <mxGeometry y="26" width="730" height="26" as="geometry" />
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-58" value="+ addModuleQueue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-57">
+          <mxGeometry y="26" width="810" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-60" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-57">
-          <mxGeometry y="52" width="730" height="8" as="geometry" />
+          <mxGeometry y="52" width="810" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-61" value="+ getProvidedExports: (module: Module) =&gt; RetureType&lt;ExportsInfo[&#39;getProvidedExports&#39;]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-57">
-          <mxGeometry y="60" width="730" height="26" as="geometry" />
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-62" value="+ handleModuleCreation // 会调用 addModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-57">
+          <mxGeometry y="60" width="810" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-62" value="+ getUsedExports: (module: Module, runtime: RuntimeSpec) =&gt; RetureType&lt;ExportsInfo[&#39;getUsedExports&#39;]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-57">
-          <mxGeometry y="86" width="730" height="26" as="geometry" />
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-71" value="+ addModule: (moudle: Moudle, processor) // addModuleQueue 会并发执行 processor, 这个 processor 调用了 module.setResolvedModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-57">
+          <mxGeometry y="86" width="810" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-63" value="AsyncQueue&lt;T, K, R&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
           <mxGeometry x="920" y="-400" width="500" height="164" as="geometry" />
