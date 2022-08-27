@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-08-27T10:52:56.914Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="hq4UgdDFlsEsaeW-GLYb" version="20.2.7" type="github">
+<mxfile host="app.diagrams.net" modified="2022-08-27T10:53:57.721Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="mPK-kJDa2QX-GfbHRSDe" version="20.2.7" type="github">
   <diagram id="Rsr1v_tStUaQ5azJq0qS" name="第 1 页">
     <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -57,13 +57,13 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-33" value="+ name: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
           <mxGeometry y="26" width="690" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-40" value="+ provided: boolean | null | undefined" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-40" value="+ provided: boolean | null | undefined // 决定了 providedExports" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
           <mxGeometry y="52" width="690" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-34" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
           <mxGeometry y="78" width="690" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-35" value="+ getUsed: (runtime: RuntimeSpec): UsageState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-35" value="+ getUsed: (runtime: RuntimeSpec): UsageState // 决定了 usedExports" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
           <mxGeometry y="86" width="690" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-43" value="+ setUsed: (usageState: UsageState, runtime: RuntimeSpec): boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
