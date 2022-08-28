@@ -1,31 +1,40 @@
-<mxfile host="app.diagrams.net" modified="2022-08-28T05:53:37.567Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="WPd7TOGg4TUDqV7k5rNZ" version="20.2.7" type="github">
+<mxfile host="app.diagrams.net" modified="2022-08-28T07:07:48.075Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="pd8IlAGCvYuT-iAGlO4m" version="20.2.7" type="github">
   <diagram id="Rsr1v_tStUaQ5azJq0qS" name="第 1 页">
-    <mxGraphModel dx="2839" dy="1831" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2707" dy="1757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-1" value="ModuleGraph" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="80" y="-80" width="720" height="164" as="geometry">
+          <mxGeometry x="80" y="-80" width="720" height="242" as="geometry">
             <mxRectangle x="290" y="200" width="100" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-2" value="- _dependencyMap: WeakMap&lt;Dependency, ModuleGraphConnection&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
           <mxGeometry y="26" width="720" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-3" value="- _moduleMap: Map&lt;Module, ModuleGraphModule&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
+        <mxCell id="SGDIjilRxUd2UXURuSJ4-1" value="- _moduleMap: Map&lt;Module, ModuleGraphModule&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-1">
           <mxGeometry y="52" width="720" height="26" as="geometry" />
         </mxCell>
+        <mxCell id="SGDIjilRxUd2UXURuSJ4-4" value="- _metaMap: WeakMap&lt;any, Object&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-1">
+          <mxGeometry y="78" width="720" height="26" as="geometry" />
+        </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-22" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
-          <mxGeometry y="78" width="720" height="8" as="geometry" />
+          <mxGeometry y="104" width="720" height="8" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-41" value="+ getProvidedExports: (module: Module) =&gt; RetureType&lt;ExportsInfo[&#39;getProvidedExports&#39;]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
-          <mxGeometry y="86" width="720" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-17" value="+ getUsedExports: (module: Module, runtime: RuntimeSpec) =&gt; RetureType&lt;ExportsInfo[&#39;getUsedExports&#39;]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
           <mxGeometry y="112" width="720" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-72" value="static setResolvedModule: (originModule: Module, dependency: Dependency, module: Module) =&gt; void // 收集上下游依赖" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-17" value="+ getUsedExports: (module: Module, runtime: RuntimeSpec) =&gt; RetureType&lt;ExportsInfo[&#39;getUsedExports&#39;]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
           <mxGeometry y="138" width="720" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SGDIjilRxUd2UXURuSJ4-2" value="+ getMeta(thing: any) =&gt; MetaData" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-1">
+          <mxGeometry y="164" width="720" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SGDIjilRxUd2UXURuSJ4-3" value="+ getMetaIfExisting(thing: any) =&gt; MetaData" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-1">
+          <mxGeometry y="190" width="720" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-72" value="static setResolvedModule: (originModule: Module, dependency: Dependency, module: Module) =&gt; void // 收集上下游依赖" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-1" vertex="1">
+          <mxGeometry y="216" width="720" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-6" value="ModuleGraphModule" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="880" y="-80" width="550" height="106" as="geometry" />
@@ -57,7 +66,7 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-26" value="+ getExportInfo: (name: string) =&gt; ExportInfo // 有副作用, 如果没有就新增" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-23" vertex="1">
           <mxGeometry y="112" width="850" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-6" value="+ setHasUseInfo: () =&gt; void // 调用多个属性的 setHasUseInfo 方法&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-23">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-6" value="+ setHasUseInfo: () =&gt; void // 调用多个属性的 setHasUseInfo 方法&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-23" vertex="1">
           <mxGeometry y="138" width="850" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-32" value="ExportInfo" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
@@ -72,10 +81,10 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-118" value="- _hasUseInRuntimeInfo: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-32" vertex="1">
           <mxGeometry y="78" width="690" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-3" value="- _globalUsed: UsageState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-3" value="- _globalUsed: UsageState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-32" vertex="1">
           <mxGeometry y="104" width="690" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-22" value="- _usedInRuntime: Map&lt;string, UsageState&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-22" value="- _usedInRuntime: Map&lt;string, UsageState&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-32" vertex="1">
           <mxGeometry y="130" width="690" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-34" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-32" vertex="1">
@@ -87,10 +96,10 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-43" value="+ setUsed: (usageState: UsageState, runtime: RuntimeSpec): boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-32" vertex="1">
           <mxGeometry y="190" width="690" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-21" value="+ setUsedConditionally: (condition: (UsageState) =&gt; boolean, newValue, runtime) =&gt; boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-21" value="+ setUsedConditionally: (condition: (UsageState) =&gt; boolean, newValue, runtime) =&gt; boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-32" vertex="1">
           <mxGeometry y="216" width="690" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-4" value="+ setHasUseInfo: () =&gt; void // 修改 canMangleUse, _hasUseInRuntimeInfo; 调用 exportsInfo 的同名方法" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-32">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-4" value="+ setHasUseInfo: () =&gt; void // 修改 canMangleUse, _hasUseInRuntimeInfo; 调用 exportsInfo 的同名方法" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-32" vertex="1">
           <mxGeometry y="242" width="690" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-42" value="&lt;p style=&quot;text-decoration-line: underline; margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;Emun: UsageState&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;Unused&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;OnlyPropertiesUsed&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;NoInfo&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;Unknown&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;Used&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
@@ -155,11 +164,11 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-116" value="+ addModule: (moudle: Moudle, processor) // addModuleQueue 会并发执行 processor, 这个 processor 调用了 module.setResolvedModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-57" vertex="1">
           <mxGeometry y="86" width="810" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-71" value="+ getDependencyReferencedExports(dep, runtim) =&gt; referenceExports" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-57" vertex="1">
+        <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-71" value="+ getDependencyReferencedExports(dep, runtim) =&gt; referenceExports // 调用了 dependency.getReferencedExports" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-57" vertex="1">
           <mxGeometry y="112" width="810" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-63" value="AsyncQueue&lt;T, K, R&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="920" y="-400" width="500" height="164" as="geometry" />
+          <mxGeometry x="-500" y="-400" width="500" height="164" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-64" value="- _root: AsyncQueue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-63" vertex="1">
           <mxGeometry y="26" width="500" height="26" as="geometry" />
@@ -191,13 +200,13 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-79" value="+ dependency: Dependency" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-73" vertex="1">
           <mxGeometry y="78" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-20" value="- _active: ConnectionState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-73">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-20" value="- _active: ConnectionState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-73" vertex="1">
           <mxGeometry y="104" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-73">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-73" vertex="1">
           <mxGeometry y="130" width="280" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-12" value="+ getActiveState: (runtime) =&gt; ConnectionState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-73">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-12" value="+ getActiveState: (runtime) =&gt; ConnectionState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-73" vertex="1">
           <mxGeometry y="138" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-85" value="AsyncDependenciesBlock extends DependenciesBlock" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
@@ -218,16 +227,16 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-94" value="+ exportInfoToModuleMap: Map&lt;ExportsInfo, Module&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
           <mxGeometry y="26" width="960" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-1" value="+ queue: TupleQueue&lt;[Module, RuntimeSpec]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-93">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-1" value="+ queue: TupleQueue&lt;[Module, RuntimeSpec]&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
           <mxGeometry y="52" width="960" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-2" value="+ processEntryDependency: (dep:Dependency, runtime: RuntimeSpec) =&gt; void // 对于每个 dep, 如果是 module, 则对其调用 processReferencedModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-93">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-2" value="+ processEntryDependency: (dep:Dependency, runtime: RuntimeSpec) =&gt; void // 对于每个 dep, 如果是 module, 则对其调用 processReferencedModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
           <mxGeometry y="78" width="960" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-115" value="+ processModule: (module, runtime, forceSideEffects) =&gt; void // 局部的queue, 广度优先, 得到当前 runtime 的 referencedExports; 维护并处理 map, 对元素调用 processReferenceModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
           <mxGeometry y="104" width="960" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-8" value="+ processReferencedModule: (module, usedExports, runtime, forceSideEffects) // 间接调用了 exportInfo 的 setUsed &amp;setUsedConditionally, 维护 queue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-93">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-8" value="+ processReferencedModule: (module, usedExports, runtime, forceSideEffects) // 间接调用了 exportInfo 的 setUsed &amp;setUsedConditionally, 维护 queue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
           <mxGeometry y="130" width="960" height="26" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-95" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
@@ -236,7 +245,7 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-96" value="// step 1: initialize exports usage&#xa;1. 对于每个 module, exportInfoToModuleMap.set(exportsInfo, module)&#xa;2. 对于 module 的 exportInfo.setHasUseInfo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
           <mxGeometry y="164" width="960" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-7" value="// step 2: trace exports usage in graph&#xa;1. processEntryDependency, 对于每个 dep, 如果是 module, 则对其调用 processReferencedModule&#xa;2. 对 queue 的每个 module 调用 processModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="PHLJTVfLrtnAu4Q4XUuZ-93">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-7" value="// step 2: trace exports usage in graph&#xa;1. processEntryDependency, 对于每个 dep, 如果是 module, 则对其调用 processReferencedModule&#xa;2. 对 queue 的每个 module 调用 processModule" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-93" vertex="1">
           <mxGeometry y="216" width="960" height="52" as="geometry" />
         </mxCell>
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-98" value="FlagDependencyExportsPlugin" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
@@ -266,7 +275,7 @@
         <mxCell id="PHLJTVfLrtnAu4Q4XUuZ-101" value="+ mergeExports: (exportsInfo:ExportsInfo, exports: Array&lt;ExportSpec | string&gt;) =&gt; void // 调用了有副作用的 exportsInfo.getExportInfo; 设 exportInfo.provided 为 true" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="PHLJTVfLrtnAu4Q4XUuZ-98" vertex="1">
           <mxGeometry y="190" width="907" height="24" as="geometry" />
         </mxCell>
-        <mxCell id="tVpbDW8xYizwQ-xqekS7-10" value="&lt;p style=&quot;text-decoration-line: underline; margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;Emun:&amp;nbsp;&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&lt;u&gt;ConnectionState&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;true: fully active&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;flase: inactive&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;TRANSITIVE:&amp;nbsp;direct module inactive&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
+        <mxCell id="tVpbDW8xYizwQ-xqekS7-10" value="&lt;p style=&quot;text-decoration-line: underline; margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;Emun:&amp;nbsp;&lt;/b&gt;&lt;b style=&quot;background-color: initial;&quot;&gt;&lt;u&gt;ConnectionState&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;true: fully active&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;flase: inactive&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;TRANSITIVE:&amp;nbsp;direct module inactive&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
           <mxGeometry x="1241" y="80" width="229" height="130" as="geometry" />
         </mxCell>
       </root>
