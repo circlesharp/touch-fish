@@ -183,7 +183,32 @@ HarmonyExportSpecifierDependency 就是 `export const xx = abc`
 3. 主逻辑: 
 4. 主要作用: 
 5. step 1: initialize exports usage
+	1. 遍历 modules, 一直追加到 exportInfoToModuleMap
+	2. 初始化每个 exportInfo 的 usedInfo `exportsInfo.setHasUseInfo()`
 6. step 2: trace exports usage in graph
+	1. 从 compilation.entries / compilation.globalEntry 出发, 根据 runtime 处理入口依赖 `processEntryDependency(dep, runtime)`
+		1. 根据 entryDependency 找到 module (这个 module 就是真正的入口 module), 调用 `processReferencedModule(module, NO_EXPORTS_REFERENCED, runtime, true)`
+			1. 入口的 EntryData 类型是特殊的, 不是 Module; 它的 dependencies 的成员也是入口特有的 EntryDependency
+			2. moduleGraph.getModule 牵扯到 ModuleGraphConnection
+			3. usedExports = NO_EXPORTS_REFERENCED 是否合理? 入口导出东西会不会被别人用到?
+			4. forceSideEffects = true 是合理的, 因为入口就是有副作用的
+	2. 处理队列中的模块 `processModule(module, runtime, false)`
+		1. 遍历局部的 queue, 对于每一个 block
+			1. 进行遍历 block.blocks
+				1. 入队 queue, 用作维护嵌套 module(as AsyncDependenciesBlock) 广度优先遍历
+			2. 进行遍历 block.dependencise
+				1. 对于每个 dep, 获得当前 runtime 下的 referencedExports (即这个 dep 的元信息里面的 id)
+					1. 从结果上看, 这个 referencedExports 一般来说和 dep.name 是相同的, 除非改了名, 是字符串或者一个带 name 的 ReferencedExport
+					2. 从实现上看, 具体的 dependency 有自己的实现, 比如 HarmonyImportSpecifierDependency:
+						1. 调用 `dep.getReferencedExports()`
+						2. 间接调用 `dep.getIds()`
+						3. 间接调用 `moduleGraph.getMetaIfExisting(dep)`
+				2. 对于每个 dep, 通过获取 connection 获取到 module, 将其存入 map // 事实上, 已经知道了一个 module 的 usedExports 了, 就差设置 flag
+		2. 维护局部的 map, 对于每一个 [module, referencedExports], 调用 `processReferencedModule(module, referencedExports)`
+	3. processReferencedModule
+		1. 间接调用了 exportInfo 的 setUsed & setUsedConditionally
+		2. 维护 queue, 以便未处理的模块回炉
+		3. 通过 exportInfoToModuleMap 通过 exportsInfo 反查到 module
 
 ### FlagDependencyExportsPlugin
 1. 多种类型的依赖有对应的 getExports 方法, 但这个方法只返回了一个带 exported names(key 为 exports) 的结构 (exportDesc)
