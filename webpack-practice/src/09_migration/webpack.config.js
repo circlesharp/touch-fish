@@ -16,13 +16,14 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new TrackDepsPlugin({
-      targetDir: './src/09_migration/src',
-      outputDir: './src/09_migration/dist',
+      // targetDir: './src/09_migration/src',
+      // outputDir: './src/09_migration/dist',
     }),
   ],
   optimization: {
     providedExports: true,
     usedExports: true,
     minimize: false,
+    sideEffects: false,
   },
 };
