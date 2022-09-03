@@ -15,6 +15,7 @@
     "vite_build_07": "vite build --config ./src/07_vue/vite.config.js",
     "pack08": "cross-env NODE_ENV=production webpack --config ./src/08_official-course/webpack.config.js",
     "pack09": "cross-env webpack --config ./src/09_migration/webpack.config.js",
+    "pack10": "cross-env webpack --config ./src/10_track-deps-demo/webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./src/07_vue/webpack.dev.js --stats-error-details",
     "dev08": "webpack serve --config ./src/08_official-course/webpack.config.js",
     "serve08": "node ./src/08_official-course/server.js"

@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { request } = require('http');
 const path = require('path');
 const { walk, unitPathSep } = require('./resolve-utils');
 
@@ -50,29 +49,18 @@ class TrackDepsPlugin {
 
   // webpack 5 的方法
   cbV5(stats) {
-    const getExportsInfo = stats.compilation.moduleGraph.getExportsInfo.bind(
-      stats.compilation.moduleGraph
-    );
+    const moduleGraph = stats.compilation.moduleGraph;
     for (const module of stats.compilation.modules) {
       const path = unitPathSep(module.resource);
-      const request = unitPathSep(module.request ?? '');
-      const rawRequest = unitPathSep(module.rawRequest ?? '');
-      const userRequest = unitPathSep(module.userRequest ?? '');
       if (!path.includes(this.targetDir)) continue;
 
       const moduleType = module.constructor.name;
-      const exportsInfo = getExportsInfo(module);
-      const providedExports = Array.from(exportsInfo?.exports).map(
-        (exp) => exp.name
-      );
-      const usedExports = Array.from(exportsInfo.getUsedExports());
-      this.exportsInfo.push({
-        moduleType,
-        path,
-        providedExports,
-        usedExports,
-        request: { request, rawRequest, userRequest },
-      });
+
+      const providedExports = moduleGraph.getProvidedExports(module);
+
+      const usedExports = Array.from(moduleGraph.getUsedExports(module) ?? []);
+
+      this.exportsInfo.push({ moduleType, path, providedExports, usedExports });
     }
   }
 
@@ -105,7 +93,9 @@ class TrackDepsPlugin {
   getUnusedFiles() {
     const allFiles = walk(this.targetDir);
     const usedFilesOfWebpack = this.exportsInfo.map((i) => i.path);
-    const unusedFiles = allFiles.filter((i) => !usedFilesOfWebpack.includes(i));
+    const unusedFiles = allFiles.filter(
+      (i) => !usedFilesOfWebpack.some((k) => k.includes(i))
+    );
     const extraPathsOfWebpack = usedFilesOfWebpack.filter(
       (i) => !allFiles.includes(i)
     );
