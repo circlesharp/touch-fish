@@ -189,7 +189,7 @@ HarmonyExportSpecifierDependency 就是 `export const xx = abc`
 	1. 从 compilation.entries / compilation.globalEntry 出发, 根据 runtime 处理入口依赖 `processEntryDependency(dep, runtime)`
 		1. 根据 entryDependency 找到 module (这个 module 就是真正的入口 module), 调用 `processReferencedModule(module, NO_EXPORTS_REFERENCED, runtime, true)`
 			1. 入口的 EntryData 类型是特殊的, 不是 Module; 它的 dependencies 的成员也是入口特有的 EntryDependency
-			2. moduleGraph.getModule 牵扯到 ModuleGraphConnection
+			2. moduleGraph.getModule 牵扯到 ModuleGraphConnection.module (即这个 dep 的 referenced module)
 			3. usedExports = NO_EXPORTS_REFERENCED 是否合理? 入口导出东西会不会被别人用到?
 			4. forceSideEffects = true 是合理的, 因为入口就是有副作用的
 	2. 处理队列中的模块 `processModule(module, runtime, false)`
