@@ -2,7 +2,8 @@ const path = require('path');
 const { TrackDepsPlugin } = require('./trackDepsTempDir/TrackDepsPlugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
+  devtool: 'source-map',
   entry: path.resolve(__dirname, './src/index.js'),
   output: {
     path: path.resolve(__dirname, './dist'),
