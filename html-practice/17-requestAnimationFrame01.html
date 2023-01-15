@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #some-element-you-want-to-animate {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div id="elapsed"></div>
+      <div id="some-element-you-want-to-animate"></div>
+    </div>
+    <script>
+      const element = document.getElementById(
+        'some-element-you-want-to-animate'
+      );
+      const elapsedEle = document.getElementById('elapsed');
+      let start, previousTimeStamp;
+      let done = false;
+      const SCALE = 10;
+      const ANIMATION_TIME = 2000;
+
+      function step(timestamp) {
+        if (start === undefined) {
+          start = timestamp;
+        }
+        const elapsed = timestamp - start;
+        elapsedEle.innerText = Math.round(elapsed);
+
+        if (previousTimeStamp !== timestamp) {
+          // 这里使用 `Math.min()` 确保元素刚好停在 200px 的位置。
+          const count = Math.min(elapsed / SCALE, ANIMATION_TIME / SCALE);
+          element.style.transform = 'translateX(' + count + 'px)';
+          if (count === ANIMATION_TIME / SCALE) done = true;
+        }
+
+        if (elapsed < ANIMATION_TIME) {
+          // 在两秒后停止动画
+          previousTimeStamp = timestamp;
+          window.requestAnimationFrame(step);
+        }
+      }
+
+      window.requestAnimationFrame(step);
+    </script>
+  </body>
+</html>

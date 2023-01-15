@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #some-element-you-want-to-animate {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div id="some-element-you-want-to-animate"></div>
+    </div>
+    <script>
+      const ANIMATION_TIME = 5000; // 完成动画的时长
+      const DEST = { x: 400, y: 500 }; // 动画的终点
+
+      function getX(elapsed) {
+        return Math.min(elapsed / ANIMATION_TIME, 1) * DEST.x;
+      }
+      function getY(elapsed) {
+        return Math.min(elapsed / ANIMATION_TIME, 1) * DEST.y;
+      }
+    </script>
+    <script>
+      startAnimation();
+
+      function startAnimation() {
+        const element = document.getElementById(
+          'some-element-you-want-to-animate'
+        );
+
+        let start, previousTimeStamp, elapsed;
+        const move = () => {
+          const x = getX(elapsed);
+          const y = getY(elapsed);
+          element.style.transform = `translate(${x}px, ${y}px)`;
+        };
+
+        window.requestAnimationFrame(moveALittleStep);
+        function moveALittleStep(timestamp) {
+          // 初始化
+          if (start === undefined) {
+            start = timestamp;
+          }
+
+          if (previousTimeStamp !== timestamp) {
+            elapsed = timestamp - start;
+
+            move(elapsed);
+            previousTimeStamp = timestamp;
+
+            if (elapsed < ANIMATION_TIME) {
+              window.requestAnimationFrame(moveALittleStep);
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
