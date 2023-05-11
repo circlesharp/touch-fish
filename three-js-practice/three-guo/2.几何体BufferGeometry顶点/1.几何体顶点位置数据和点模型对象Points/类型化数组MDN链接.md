@@ -1,0 +1,1 @@
+类型化数组MDN简介：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Typed_arrays

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Three.js中文网：http://www.webgl3d.cn/</title>
+</head>
+
+<body>
+    <script>
+        // requestAnimationFrame实现周期性循环执行
+        // requestAnimationFrame默认每秒钟执行60次，但不一定能做到，要看代码的性能
+        let i = 0;
+        function render() {
+            i+=1;
+            console.log('执行次数'+i);
+            requestAnimationFrame(render);//请求再次执行函数render
+        }
+        render();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Three.js中文网：http://www.webgl3d.cn/</title>
+</head>
+
+<body>
+    <!-- type="importmap"功能：.html文件中也能和nodejs开发环境中一样方式，引入npm安装的js库 -->
+    <script type="importmap">
+        {
+			"imports": {
+				"three": "../../../three.js/build/three.module.js",
+                "three/addons/": "../../../three.js/examples/jsm/"
+			}
+		}
+	</script>
+    <script type="module">
+        // 引入three.js库：借助<script type="importmap">，和nodejs开发环境中写法一样
+        import * as THREE from 'three';
+        // 浏览器控制台测试，是否引入成功
+        console.log(THREE.Scene);
+
+        // 引入扩展库OrbitControls.js
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        // 引入扩展库GLTFLoader.js
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        console.log(OrbitControls);
+        console.log(GLTFLoader);
+    </script>
+</body>
+
+</html>
