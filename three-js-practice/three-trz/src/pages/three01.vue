@@ -1,11 +1,10 @@
 <template>
-  <h1>THREE 项目测试</h1>
-  <div class="three-container" ref="targetRef"></div>
+  <div class="three01" ref="targetRef"></div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { renderer, animate } from '@/script';
+import { renderer, animate } from './script/localLocation';
 import { useThreeInit } from '@/hooks/useThreeInit';
 
 export default defineComponent({
@@ -18,3 +17,5 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="less" scoped></style>
