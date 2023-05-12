@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .bubble-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 400px;
+        height: 200px;
+        border: 1px solid black;
+        gap: 8px;
+      }
+      .bubble-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+      .bubble-item {
+        height: 20px;
+        width: 40px;
+        background-color: pink;
+      }
+      /* 奇数行的偶数项 */
+      .bubble-row:nth-child(2n + 1) .bubble-item:nth-child(2n) {
+        transform: translateY(-2px);
+      }
+      /* 偶数行的偶数项 */
+      .bubble-row:nth-child(2n) .bubble-item:nth-child(2n) {
+        transform: translateY(2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bubble-container">
+      <div class="bubble-row">
+        <div class="bubble-item" style="width: 60px"></div>
+        <div class="bubble-item"></div>
+        <div class="bubble-item" style="width: 30px"></div>
+      </div>
+      <div class="bubble-row">
+        <div class="bubble-item" style="width: 60px"></div>
+        <div class="bubble-item" style="width: 30px"></div>
+      </div>
+    </div>
+  </body>
+</html>
